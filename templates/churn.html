@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="frame">
+        <h1>Churn</h1>
+        <div class="one-graph">
+            <img src="{{ url_for('static', filename='graphs/tenure_churn_bar.png') }}"
+                 alt="Tenure churn bar">
+        </div>
+    </div>
+
+{% endblock %}

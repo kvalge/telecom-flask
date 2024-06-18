@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href="../static/style.css" rel="stylesheet" type="text/css">
+        <title>Base</title>
+    </head>
+    <body>
+        <div class="background">
+            <nav>
+                <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Summary Statistics </a>|
+                <a href="/churn" class="{{ 'active' if request.path == '/churn' else '' }}">Churn </a>|
+                <a href="/sociodem" class="{{ 'active' if request.path == '/sociodem' else '' }}">Sociodemographics </a>|
+                <a href="/services" class="{{ 'active' if request.path == '/services' else '' }}">Services</a>
+            </nav>
+
+            <div>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="frame">
+        <h1>Summary Statistics</h1>
+
+        <h2>Tenure</h2>
+        <p>Contract duration in months</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in tenure_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/tenure_histogram.png') }}"
+                         alt="Histogram of Tenure" class="graph">
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/tenure_boxplot.png') }}"
+                         alt="Boxplot of Tenure">
+                </div>
+            </div>
+
+        </div>
+
+        <h2>Monthly Charges</h2>
+        <p>Contract fee per month</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in monthly_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/monthly_charges_histogram.png') }}"
+                         alt="Histogram of Monthly Charges" class="graph">
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/monthly_charges_boxplot.png') }}"
+                         alt="Boxplot of Monthly Charges">
+                </div>
+            </div>
+        </div>
+
+        <h2>Churn</h2>
+        <p>Whether the customer has terminated the contract within the last month</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in churn_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/churn_pie.png') }}"
+                         alt="Churn" class="graph">
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
