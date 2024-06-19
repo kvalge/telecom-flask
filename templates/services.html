@@ -3,6 +3,63 @@
 
     <div class="frame">
         <h1>Services</h1>
-    </div>
 
+        <h2>Phone Service</h2>
+        <p>Does customer has phone service</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in phone_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/phone_bar.png') }}"
+                         alt="Bar of Phone" class="graph">
+                </div>
+            </div>
+        </div>
+
+            <h2>Internet Service</h2>
+        <p>Does customer has internet service</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in internet_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/internet_bar.png') }}"
+                         alt="Bar of Internet" class="graph">
+                </div>
+            </div>
+        </div>
+
+                <h2>Streaming TV Service</h2>
+        <p>Does customer has streaming TV service</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in streaming_tv_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/streaming_tv_bar.png') }}"
+                         alt="Bar of Streaming TV" class="graph">
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

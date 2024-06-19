@@ -2,7 +2,65 @@
 {% block content %}
 
     <div class="frame">
-        <h1>Sociodemographic</h1>
+        <h1>Sociodemographics</h1>
+
+        <h2>Age Group</h2>
+        <p>Is customers under or over 65 age</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in age_group_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/age_group_bar.png') }}"
+                         alt="Bar of Age Group" class="graph">
+                </div>
+            </div>
+        </div>
+
+        <h2>Partnership</h2>
+        <p>Does customer has or hasn't partner</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in partner_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/partner_bar.png') }}"
+                         alt="Bar of Partnership" class="graph">
+                </div>
+            </div>
+        </div>
+
+            <h2>Dependents</h2>
+        <p>Does customer has or hasn't dependents</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in dependents_stat.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/dependents_bar.png') }}"
+                         alt="Bar of Dependents" class="graph">
+                </div>
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}
