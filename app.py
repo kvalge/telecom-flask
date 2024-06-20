@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def statistics():
+def summary():
     tenure_stat = tenure_statistics()
     tenure_data = tenure()
     tenure_histogram(tenure_data)
@@ -34,6 +34,9 @@ def churn_page():
 
     monthly_charges_churn_data = monthly_charges_churn()
     monthly_charges_churn_bar(monthly_charges_churn_data)
+
+    monthly_total_churn_data = monthly_total_charges_churn()
+    monthly_total_churn_bar(monthly_total_churn_data)
 
     return render_template('churn.html')
 

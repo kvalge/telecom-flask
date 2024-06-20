@@ -85,22 +85,34 @@ def tenure_churn():
     bins = np.arange(0, data['Tenure'].max() + 5, 5)
     data['Tenure_bin'] = pd.cut(data['Tenure'], bins=bins, right=False)
 
-    grouped = data.groupby(['Tenure_bin', 'Churn']).size().unstack(fill_value=0)
+    tenure_churn_summary = data.groupby(['Tenure_bin', 'Churn']).size().unstack(fill_value=0)
 
-    grouped = grouped.div(grouped.sum(axis=1), axis=0)
+    tenure_churn_summary = tenure_churn_summary.div(tenure_churn_summary.sum(axis=1), axis=0)
 
-    return grouped
+    return tenure_churn_summary
 
 
 def monthly_charges_churn():
     bins = np.arange(10, data['Monthly_Charges'].max() + 10, 10)
     data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins, right=False)
 
-    grouped = data.groupby(['Monthly_Charges_bin', 'Churn']).size().unstack(fill_value=0)
+    monthly_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn']).size().unstack(fill_value=0)
 
-    grouped = grouped.div(grouped.sum(axis=1), axis=0)
+    monthly_churn_summary = monthly_churn_summary.div(monthly_churn_summary.sum(axis=1), axis=0)
 
-    return grouped
+    return monthly_churn_summary
+
+
+def monthly_total_charges_churn():
+    data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
+    data.dropna(subset=['Total_Charges'])
+
+    bins = np.arange(10, 120, 10)
+    data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
+
+    monthly_total_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn'])['Total_Charges'].sum().unstack().fillna(0)
+
+    return monthly_total_churn_summary
 
 
 def age_group_statistics():

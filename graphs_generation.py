@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def tenure_histogram(tenure_data):
@@ -7,6 +8,7 @@ def tenure_histogram(tenure_data):
     plt.xlabel('Tenure')
     plt.ylabel('Number of Contracts')
     plt.title('Distribution of Tenure')
+
     plt.savefig('static/graphs/tenure_histogram.png')
     plt.close()
 
@@ -17,6 +19,7 @@ def tenure_boxplot(tenure_data):
     for median in box_plot['medians']:
         median.set_color('white')
     plt.yticks([])
+
     plt.savefig('static/graphs/tenure_boxplot.png')
     plt.close()
 
@@ -27,6 +30,7 @@ def monthly_charges_histogram(charges_data):
     plt.xlabel('Monthly Charges')
     plt.ylabel('Number of Contracts')
     plt.title('Distribution of Monthly Charges')
+
     plt.savefig('static/graphs/monthly_charges_histogram.png')
     plt.close()
 
@@ -37,6 +41,7 @@ def monthly_charges_boxplot(charges_data):
     for median in box_plot['medians']:
         median.set_color('white')
     plt.yticks([])
+
     plt.savefig('static/graphs/monthly_charges_boxplot.png')
     plt.close()
 
@@ -48,42 +53,56 @@ def churn_pie(churn_data):
     plt.figure(figsize=(4, 4))
     plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')
+
     plt.savefig('static/graphs/churn_pie.png')
     plt.close()
 
 
 def tenure_churn_bar(tenure_churn_data):
     fig, ax = plt.subplots(figsize=(8, 5))
-
     tenure_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1, ax=ax)
-
     plt.title('Churn by Tenure')
     plt.xlabel('Tenure')
     plt.xticks(rotation=0, fontsize=7)
     plt.legend(title='Churn')
     for container in ax.containers:
         ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
-
     plt.tight_layout()
+
     plt.savefig('static/graphs/tenure_churn_bar.png')
     plt.close()
 
 
 def monthly_charges_churn_bar(monthly_charges_churn_data):
     fig, ax = plt.subplots(figsize=(8, 5))
-
     monthly_charges_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1,
                                     ax=ax)
-
     plt.title('Churn by Monthly Charges')
     plt.xlabel('Monthly Charges')
     plt.xticks(rotation=0, fontsize=6)
     plt.legend(title='Churn')
     for container in ax.containers:
         ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
-
     plt.tight_layout()
+
     plt.savefig('static/graphs/monthly_charges_churn_bar.png')
+    plt.close()
+
+
+def monthly_total_churn_bar(summary):
+    fig, ax = plt.subplots(figsize=(8, 5))
+    bar_width = 0.9
+    indices = np.arange(len(summary))
+    ax.bar(indices, summary['Yes'], bar_width, label='Churn Yes', color='#034362')
+    ax.bar(indices, summary['No'], bar_width, bottom=summary['Yes'], label='Churn No', color='#0B9AB6')
+    ax.set_title('Total Revenue by Monthly Charges and Churn')
+    ax.set_xlabel('Monthly Charges')
+    ax.set_ylabel('Total Charges')
+    ax.set_xticks(indices)
+    ax.set_xticklabels([f'{interval.left:.0f}-{interval.right:.0f}' for interval in summary.index], rotation=0)
+    ax.legend()
+
+    plt.savefig('static/graphs/monthly_total_churn_bar.png')
     plt.close()
 
 

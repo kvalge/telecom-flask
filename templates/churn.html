@@ -2,15 +2,21 @@
 {% block content %}
 
     <div class="frame">
+
         <h1>Churn</h1>
         <div class="one-graph">
             <img src="{{ url_for('static', filename='graphs/tenure_churn_bar.png') }}"
                  alt="Tenure churn bar">
         </div>
-            <div class="one-graph">
+        <div class="one-graph">
             <img src="{{ url_for('static', filename='graphs/monthly_charges_churn_bar.png') }}"
                  alt="Monthly charges churn bar">
         </div>
+            <div class="one-graph">
+            <img src="{{ url_for('static', filename='graphs/monthly_total_churn_bar.png') }}"
+                 alt="Monthly and total charges churn bar">
+        </div>
+
     </div>
 
 {% endblock %}
