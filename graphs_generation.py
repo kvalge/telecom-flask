@@ -107,11 +107,12 @@ def monthly_total_churn_bar(summary):
 
 
 def age_group_bar(age_group_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(age_group_data.index, age_group_data.values, color=['#0B9AB6', '#034362'])
     plt.title('Age Group')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1], labels=['Age < 65', 'Age > 65'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1], labels=['Age < 65', 'Age > 65'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
@@ -122,11 +123,12 @@ def age_group_bar(age_group_data):
 
 
 def partner_bar(partner_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(partner_data.index, partner_data.values, color=['#0B9AB6', '#034362'])
     plt.title('Partnership')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1], labels=['Has no partner', 'Has partner'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1], labels=['Has no partner', 'Has partner'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
@@ -137,11 +139,12 @@ def partner_bar(partner_data):
 
 
 def dependents_bar(dependents_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(dependents_data.index, dependents_data.values, color=['#0B9AB6', '#034362'])
     plt.title('Dependents')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1], labels=['Has no dependents', 'Has dependents'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1], labels=['Has no dependents', 'Has dependents'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
@@ -152,11 +155,12 @@ def dependents_bar(dependents_data):
 
 
 def phone_bar(phone_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(phone_data.index, phone_data.values, color=['#0B9AB6', '#034362'])
     plt.title('Phone Service')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1], labels=['Has phone service', 'Has no phone service'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1], labels=['Has phone service', 'Has no phone service'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
@@ -167,11 +171,12 @@ def phone_bar(phone_data):
 
 
 def internet_bar(internet_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(internet_data.index, internet_data.values, color=['#0B9AB6', '#0283C5', '#034362'])
     plt.title('Internet Service')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1, 2], labels=['fiber optic', 'dsl', 'has no internet service'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1, 2], labels=['fiber optic', 'dsl', 'has no internet service'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
@@ -182,11 +187,12 @@ def internet_bar(internet_data):
 
 
 def streaming_tv_bar(streaming_tv_data):
-    plt.figure(figsize=(6, 4))
+    plt.figure(figsize=(5, 3))
     bars = plt.bar(streaming_tv_data.index, streaming_tv_data.values, color=['#0B9AB6', '#0283C5', '#034362'])
     plt.title('Streaming TV Service')
-    plt.ylabel('Number of Contracts')
-    plt.xticks(ticks=[0, 1, 2], labels=['has no tv', 'has tv', 'has no internet service'])
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1, 2], labels=['has no tv', 'has tv', 'has no internet service'], fontsize=8)
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',

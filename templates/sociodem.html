@@ -21,6 +21,15 @@
                          alt="Bar of Age Group" class="graph">
                 </div>
             </div>
+            <div><p>Average monthly charges by churn and age group</p>
+                <div>
+                    {% for key, value in by_age_group.items() %}
+
+                        <p>{{ key }} : {{ value }}</p>
+
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 
         <h2>Partnership</h2>
@@ -42,7 +51,7 @@
             </div>
         </div>
 
-            <h2>Dependents</h2>
+        <h2>Dependents</h2>
         <p>Does customer has or hasn't dependents</p>
 
         <div class="container">

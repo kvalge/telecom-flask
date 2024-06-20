@@ -55,10 +55,13 @@ def sociodem_page():
     dependents_data = dependents()
     dependents_bar(dependents_data)
 
+    by_age_group = churn_by_age_group_monthly_mean()
+
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
                            partner_stat=partner_stat,
-                           dependents_stat=dependents_stat)
+                           dependents_stat=dependents_stat,
+                           by_age_group=by_age_group)
 
 
 @app.route('/services', methods=['GET'])

@@ -110,7 +110,8 @@ def monthly_total_charges_churn():
     bins = np.arange(10, 120, 10)
     data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
 
-    monthly_total_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn'])['Total_Charges'].sum().unstack().fillna(0)
+    monthly_total_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn'])[
+        'Total_Charges'].sum().unstack().fillna(0)
 
     return monthly_total_churn_summary
 
@@ -179,6 +180,19 @@ def dependents_statistics():
 
 def dependents():
     return data['Dependents'].value_counts()
+
+
+def churn_by_age_group_monthly_mean():
+    mean = data.groupby(['Churn', 'Senior_Citizen'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Age < 65': round(list(mean)[0], 2),
+        'Active & Age > 65': round(list(mean)[1], 2),
+        'Terminated & Age < 65': round(list(mean)[2], 2),
+        'Terminated & Age > 65': round(list(mean)[3], 2)
+    }
+
+    return by_mean
 
 
 def phone_statistics():
