@@ -56,12 +56,16 @@ def sociodem_page():
     dependents_bar(dependents_data)
 
     by_age_group = churn_by_age_group_monthly_mean()
+    by_dependents = churn_by_dependents_monthly_mean()
+    by_partner = churn_by_partner_monthly_mean()
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
                            partner_stat=partner_stat,
                            dependents_stat=dependents_stat,
-                           by_age_group=by_age_group)
+                           by_age_group=by_age_group,
+                           by_dependents=by_dependents,
+                           by_partner=by_partner)
 
 
 @app.route('/services', methods=['GET'])
@@ -78,10 +82,17 @@ def services_page():
     streaming_tv_data = streaming_tv()
     streaming_tv_bar(streaming_tv_data)
 
+    by_phone = churn_by_phone_monthly_mean()
+    by_internet = churn_by_internet_monthly_mean()
+    by_streaming_tv = churn_by_streaming_tv_monthly_mean()
+
     return render_template('services.html',
                            phone_stat=phone_stat,
                            internet_stat=internet_stat,
-                           streaming_tv_stat=streaming_tv_stat)
+                           streaming_tv_stat=streaming_tv_stat,
+                           by_phone=by_phone,
+                           by_internet=by_internet,
+                           by_streaming_tv=by_streaming_tv)
 
 
 if __name__ == '__main__':

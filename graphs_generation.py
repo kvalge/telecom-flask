@@ -50,7 +50,7 @@ def churn_pie(churn_data):
     labels = churn_data.index
     sizes = churn_data.values
     colors = ['#0B9AB6', '#034362']
-    plt.figure(figsize=(4, 4))
+    plt.figure(figsize=(3, 3))
     plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')
 

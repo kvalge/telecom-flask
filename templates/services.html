@@ -5,7 +5,7 @@
         <h1>Services</h1>
 
         <h2>Phone Service</h2>
-        <p>Does customer has phone service</p>
+        <p>Does the customer have phone service</p>
 
         <div class="container">
             <div>
@@ -21,10 +21,22 @@
                          alt="Bar of Phone" class="graph">
                 </div>
             </div>
+
         </div>
 
-            <h2>Internet Service</h2>
-        <p>Does customer has internet service</p>
+        <div>
+            <p>Average monthly charges by churn and phone service</p>
+            <div>
+                {% for key, value in by_phone.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <h2>Internet Service</h2>
+        <p>Does the customer have internet service</p>
 
         <div class="container">
             <div>
@@ -40,10 +52,22 @@
                          alt="Bar of Internet" class="graph">
                 </div>
             </div>
+
         </div>
 
-                <h2>Streaming TV Service</h2>
-        <p>Does customer has streaming TV service</p>
+        <div>
+            <p>Average monthly charges by churn and internet service</p>
+            <div>
+                {% for key, value in by_internet.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <h2>Streaming TV Service</h2>
+        <p>Does the customer have streaming TV service</p>
 
         <div class="container">
             <div>
@@ -58,6 +82,17 @@
                     <img src="{{ url_for('static', filename='graphs/streaming_tv_bar.png') }}"
                          alt="Bar of Streaming TV" class="graph">
                 </div>
+            </div>
+        </div>
+
+        <div>
+            <p>Average monthly charges by churn and streaming TV service</p>
+            <div>
+                {% for key, value in by_streaming_tv.items() %}
+
+                    <p>{{ key }} : {{ value }}</p>
+
+                {% endfor %}
             </div>
         </div>
 

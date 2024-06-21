@@ -138,6 +138,19 @@ def age_group():
     return data['Senior_Citizen'].value_counts()
 
 
+def churn_by_age_group_monthly_mean():
+    mean = data.groupby(['Churn', 'Senior_Citizen'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Age < 65': round(list(mean)[0], 2),
+        'Active & Age > 65': round(list(mean)[1], 2),
+        'Terminated & Age < 65': round(list(mean)[2], 2),
+        'Terminated & Age > 65': round(list(mean)[3], 2)
+    }
+
+    return by_mean
+
+
 def partner_statistics():
     partner_no = data['Partner'].value_counts()['No']
     partner_yes = data['Partner'].value_counts()['Yes']
@@ -158,6 +171,19 @@ def partner_statistics():
 
 def partner():
     return data['Partner'].value_counts()
+
+
+def churn_by_partner_monthly_mean():
+    mean = data.groupby(['Churn', 'Partner'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Has no partner': round(list(mean)[0], 2),
+        'Active & Has partner': round(list(mean)[1], 2),
+        'Terminated & Has no partner': round(list(mean)[2], 2),
+        'Terminated & Has partner': round(list(mean)[3], 2)
+    }
+
+    return by_mean
 
 
 def dependents_statistics():
@@ -182,14 +208,14 @@ def dependents():
     return data['Dependents'].value_counts()
 
 
-def churn_by_age_group_monthly_mean():
-    mean = data.groupby(['Churn', 'Senior_Citizen'])['Monthly_Charges'].mean()
+def churn_by_dependents_monthly_mean():
+    mean = data.groupby(['Churn', 'Dependents'])['Monthly_Charges'].mean()
 
     by_mean = {
-        'Active & Age < 65': round(list(mean)[0], 2),
-        'Active & Age > 65': round(list(mean)[1], 2),
-        'Terminated & Age < 65': round(list(mean)[2], 2),
-        'Terminated & Age > 65': round(list(mean)[3], 2)
+        'Active & Has no dependents': round(list(mean)[0], 2),
+        'Active & Has dependents': round(list(mean)[1], 2),
+        'Terminated & Has no dependents': round(list(mean)[2], 2),
+        'Terminated & Has dependents': round(list(mean)[3], 2)
     }
 
     return by_mean
@@ -215,6 +241,19 @@ def phone_statistics():
 
 def phone():
     return data['Phone_Service'].value_counts()
+
+
+def churn_by_phone_monthly_mean():
+    mean = data.groupby(['Churn', 'Phone_Service'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Has phone service': round(list(mean)[0], 2),
+        'Active & Has no phone service': round(list(mean)[1], 2),
+        'Terminated & Has phone service': round(list(mean)[2], 2),
+        'Terminated & Has no phone service': round(list(mean)[3], 2)
+    }
+
+    return by_mean
 
 
 def internet_statistics():
@@ -243,6 +282,21 @@ def internet():
     return data['Internet_Service'].value_counts()
 
 
+def churn_by_internet_monthly_mean():
+    mean = data.groupby(['Churn', 'Internet_Service'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Has dsl service': round(list(mean)[0], 2),
+        'Active & Has fiber optic service': round(list(mean)[1], 2),
+        'Active & No internet service': round(list(mean)[2], 2),
+        'Terminated & Has dsl service': round(list(mean)[3], 2),
+        'Terminated & Has fiber optic service': round(list(mean)[4], 2),
+        'Terminated & No internet service': round(list(mean)[5], 2)
+    }
+
+    return by_mean
+
+
 def streaming_tv_statistics():
     tv_yes = data['Streaming_TV'].value_counts()['Yes']
     tv_no = data['Streaming_TV'].value_counts()['No']
@@ -267,3 +321,21 @@ def streaming_tv_statistics():
 
 def streaming_tv():
     return data['Streaming_TV'].value_counts()
+
+
+def churn_by_streaming_tv_monthly_mean():
+    mean = data.groupby(['Churn', 'Streaming_TV'])['Monthly_Charges'].mean()
+
+    by_mean = {
+        'Active & Has no TV service': round(list(mean)[0], 2),
+        'Active & Has no internet service': round(list(mean)[1], 2),
+        'Active & Has TV service': round(list(mean)[2], 2),
+        'Terminated & Has no TV service': round(list(mean)[3], 2),
+        'Terminated & Has no internet service': round(list(mean)[4], 2),
+        'Terminated & Has TV service': round(list(mean)[5], 2)
+    }
+
+    print(mean)
+
+    return by_mean
+churn_by_streaming_tv_monthly_mean()
