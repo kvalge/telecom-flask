@@ -59,6 +59,12 @@ def sociodem_page():
     by_dependents = churn_by_dependents_monthly_mean()
     by_partner = churn_by_partner_monthly_mean()
 
+    tenure_by_sociodem = av_tenure_by_sociodem()
+    av_tenure_by_sociodem_line(tenure_by_sociodem)
+
+    charges_by_sociodem = av_monthly_charges_by_sociodem()
+    av_monthly_charges_by_sociodem_line(charges_by_sociodem)
+
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
                            partner_stat=partner_stat,

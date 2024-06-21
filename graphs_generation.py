@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from functions import tenure, monthly_charges
+
 
 def tenure_histogram(tenure_data):
     plt.figure(figsize=(10, 6))
@@ -50,8 +52,9 @@ def churn_pie(churn_data):
     labels = churn_data.index
     sizes = churn_data.values
     colors = ['#0B9AB6', '#034362']
+    explode = (0, 0.1)
     plt.figure(figsize=(3, 3))
-    plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
+    plt.pie(sizes, labels=labels, colors=colors, explode=explode, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')
 
     plt.savefig('static/graphs/churn_pie.png')
@@ -151,6 +154,48 @@ def dependents_bar(dependents_data):
                  fontsize=10)
 
     plt.savefig('static/graphs/dependents_bar.png')
+    plt.close()
+
+
+def av_tenure_by_sociodem_line(sociodem_data):
+    plt.figure(figsize=(6, 4))
+
+    color = ['#0B9AB6', '#0283C5', '#034362']
+    sociodem_data[0].plot(kind='line', marker='o', color=color[0], label='Over 65')
+    sociodem_data[1].plot(kind='line', marker='o', color=color[1], label='Dependents')
+    sociodem_data[2].plot(kind='line', marker='o', color=color[2], label='Partner')
+
+    plt.title('Average Tenure by Sociodem')
+    plt.xlabel('Sociodemographics')
+    plt.ylabel('Average Tenure')
+    plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
+    y_ticks = np.arange(0, tenure().iloc[-1] + 1, 5)
+    plt.yticks(ticks=y_ticks, labels=[str(int(round(tick))) for tick in y_ticks])
+    plt.yticks(fontsize=6)
+    plt.legend()
+
+    plt.savefig('static/graphs/tenure_by_sociodem_line.png')
+    plt.close()
+
+
+def av_monthly_charges_by_sociodem_line(sociodem_data):
+    plt.figure(figsize=(6, 4))
+    color = ['#0B9AB6', '#0283C5', '#034362']
+    sociodem_data[0].plot(kind='line', marker='o', color=color[0], label='Over 65')
+    sociodem_data[1].plot(kind='line', marker='o', color=color[1], label='Dependents')
+    sociodem_data[2].plot(kind='line', marker='o', color=color[2], label='Partner')
+
+    plt.title('Average Monthly Charges by Sociodem')
+    plt.xlabel('Sociodemographics')
+    plt.ylabel('Average Monthly Charges')
+    plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
+    min_value = min(10, monthly_charges().min())
+    y_ticks = np.arange(min_value, monthly_charges().iloc[-1] + 1, 10)
+    plt.yticks(ticks=y_ticks, labels=[str(int(tick)) for tick in y_ticks])
+    plt.yticks(fontsize=6)
+    plt.legend()
+
+    plt.savefig('static/graphs/monthly_by_sociodem_line.png')
     plt.close()
 
 

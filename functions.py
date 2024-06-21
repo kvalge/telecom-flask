@@ -28,6 +28,8 @@ def tenure_statistics():
 
 
 def tenure():
+    print(data['Tenure'][0])
+
     return data['Tenure']
 
 
@@ -221,6 +223,22 @@ def churn_by_dependents_monthly_mean():
     return by_mean
 
 
+def av_tenure_by_sociodem():
+    av_age = data.groupby('Senior_Citizen')['Tenure'].mean()
+    av_dependents = data.groupby('Dependents')['Tenure'].mean()
+    av_partner = data.groupby('Partner')['Tenure'].mean()
+
+    return av_age, av_dependents, av_partner
+
+
+def av_monthly_charges_by_sociodem():
+    av_age = data.groupby('Senior_Citizen')['Monthly_Charges'].mean()
+    av_dependents = data.groupby('Dependents')['Monthly_Charges'].mean()
+    av_partner = data.groupby('Partner')['Monthly_Charges'].mean()
+
+    return av_age, av_dependents, av_partner
+
+
 def phone_statistics():
     phone_no = data['Phone_Service'].value_counts()['No']
     phone_yes = data['Phone_Service'].value_counts()['Yes']
@@ -338,4 +356,3 @@ def churn_by_streaming_tv_monthly_mean():
     print(mean)
 
     return by_mean
-churn_by_streaming_tv_monthly_mean()
