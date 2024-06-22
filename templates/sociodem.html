@@ -5,7 +5,7 @@
         <h1>Sociodemographics</h1>
 
         <h2>Age Group</h2>
-        <p>Is the customer above the age of 65</p>
+        <p>Is the customer above or below the age of 65</p>
 
         <div class="container">
             <div>
@@ -24,12 +24,20 @@
         </div>
         <div>
             <p>Average monthly charges by churn and age group</p>
-            <div>
-                {% for key, value in by_age_group.items() %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_age_group.items() %}
 
-                    <p>{{ key }} : {{ value }}</p>
+                        <p>{{ key }} : {{ value }}</p>
 
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_age_group_monthly_mean_bar.png') }}"
+                             alt="Bar of Age Group" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
@@ -54,12 +62,20 @@
         </div>
         <div>
             <p>Average monthly charges by churn and partnership</p>
-            <div>
-                {% for key, value in by_partner.items() %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_partner.items() %}
 
-                    <p>{{ key }} : {{ value }}</p>
+                        <p>{{ key }} : {{ value }}</p>
 
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_partner_monthly_mean_bar.png') }}"
+                             alt="Bar of Partnership" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
@@ -85,12 +101,20 @@
         </div>
         <div>
             <p>Average monthly charges by churn and dependents</p>
-            <div>
-                {% for key, value in by_dependents.items() %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_dependents.items() %}
 
-                    <p>{{ key }} : {{ value }}</p>
+                        <p>{{ key }} : {{ value }}</p>
 
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                            <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_dependents_monthly_mean_bar.png') }}"
+                             alt="Bar of Dependents" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
 

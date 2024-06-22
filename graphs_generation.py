@@ -116,12 +116,43 @@ def age_group_bar(age_group_data):
     plt.ylabel('Number of Contracts', fontsize=7)
     plt.yticks(fontsize=7)
     plt.xticks(ticks=[0, 1], labels=['Age < 65', 'Age > 65'], fontsize=8)
+
+    data_sum = sum(list(age_group_data))
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
+        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
+                 ha='center', color='white',
                  fontsize=10)
 
     plt.savefig('static/graphs/age_group_bar.png')
+    plt.close()
+
+
+def churn_by_age_group_monthly_mean_bar(mean_data):
+    data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
+
+    labels = list(data.keys())
+    values = list(data.values())
+
+    fig, ax = plt.subplots(figsize=(5, 2))
+
+    color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
+
+    data_sum = sum(values)
+    bar_widths = [val / data_sum * 100 for val in values]
+    bars = ax.barh(labels, bar_widths, height=0.9, color=color)
+
+    for bar in bars:
+        width = bar.get_width()
+        ax.text(width, bar.get_y() + bar.get_height() / 2,
+                f'{round(width)}% ', ha='right', va='center', color='white')
+
+    plt.xticks(fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.title('Share of average monthly charges\n by churn and age group')
+    plt.tight_layout()
+
+    plt.savefig('static/graphs/churn_by_age_group_monthly_mean_bar.png')
     plt.close()
 
 
@@ -132,12 +163,43 @@ def partner_bar(partner_data):
     plt.ylabel('Number of Contracts', fontsize=7)
     plt.yticks(fontsize=7)
     plt.xticks(ticks=[0, 1], labels=['Has no partner', 'Has partner'], fontsize=8)
+
+    data_sum = sum(list(partner_data))
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
+        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
+                 ha='center', color='white',
                  fontsize=10)
 
     plt.savefig('static/graphs/partner_bar.png')
+    plt.close()
+
+
+def churn_by_partner_monthly_mean_bar(mean_data):
+    data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
+
+    labels = list(data.keys())
+    values = list(data.values())
+
+    fig, ax = plt.subplots(figsize=(5, 2))
+
+    color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
+
+    data_sum = sum(values)
+    bar_widths = [val / data_sum * 100 for val in values]
+    bars = ax.barh(labels, bar_widths, height=0.9, color=color)
+
+    for bar in bars:
+        width = bar.get_width()
+        ax.text(width, bar.get_y() + bar.get_height() / 2,
+                f'{round(width)}% ', ha='right', va='center', color='white')
+
+    plt.xticks(fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.title('Share of average monthly charges\n by churn and partnership')
+    plt.tight_layout()
+
+    plt.savefig('static/graphs/churn_by_partner_monthly_mean_bar.png')
     plt.close()
 
 
@@ -148,12 +210,43 @@ def dependents_bar(dependents_data):
     plt.ylabel('Number of Contracts', fontsize=7)
     plt.yticks(fontsize=7)
     plt.xticks(ticks=[0, 1], labels=['Has no dependents', 'Has dependents'], fontsize=8)
+
+    data_sum = sum(list(dependents_data))
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
+        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
+                 ha='center', color='white',
                  fontsize=10)
 
     plt.savefig('static/graphs/dependents_bar.png')
+    plt.close()
+
+
+def churn_by_dependents_monthly_mean_bar(mean_data):
+    data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
+
+    labels = list(data.keys())
+    values = list(data.values())
+
+    fig, ax = plt.subplots(figsize=(5, 2))
+
+    color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
+
+    data_sum = sum(values)
+    bar_widths = [val / data_sum * 100 for val in values]
+    bars = ax.barh(labels, bar_widths, height=0.9, color=color)
+
+    for bar in bars:
+        width = bar.get_width()
+        ax.text(width, bar.get_y() + bar.get_height() / 2,
+                f'{round(width)}% ', ha='right', va='center', color='white')
+
+    plt.xticks(fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.title('Share of average monthly charges\n by churn and dependents')
+    plt.tight_layout()
+
+    plt.savefig('static/graphs/churn_by_dependents_monthly_mean_bar.png')
     plt.close()
 
 

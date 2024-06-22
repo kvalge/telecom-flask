@@ -5,14 +5,14 @@ import numpy as np
 data = read_data()
 
 
-def tenure_statistics():
-    tenure_mean = round(data['Tenure'].mean(), 2)
+def tenure_summary_statistics():
+    tenure_mean = round(data['Tenure'].mean(), 1)
     tenure_median = data['Tenure'].median()
     tenure_min = data['Tenure'].min()
     tenure_max = data['Tenure'].max()
     tenure_q1 = data['Tenure'].quantile(0.25)
     tenure_q3 = data['Tenure'].quantile(0.75)
-    tenure_std = round(data['Tenure'].std(), 2)
+    tenure_std = round(data['Tenure'].std(), 1)
 
     tenure_summary = {
         "Mean": tenure_mean,
@@ -28,8 +28,6 @@ def tenure_statistics():
 
 
 def tenure():
-    print(data['Tenure'][0])
-
     return data['Tenure']
 
 
@@ -352,7 +350,5 @@ def churn_by_streaming_tv_monthly_mean():
         'Terminated & Has no internet service': round(list(mean)[4], 2),
         'Terminated & Has TV service': round(list(mean)[5], 2)
     }
-
-    print(mean)
 
     return by_mean

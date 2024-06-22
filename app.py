@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def summary():
-    tenure_stat = tenure_statistics()
+    tenure_stat = tenure_summary_statistics()
     tenure_data = tenure()
     tenure_histogram(tenure_data)
     tenure_boxplot(tenure_data)
@@ -64,6 +64,10 @@ def sociodem_page():
 
     charges_by_sociodem = av_monthly_charges_by_sociodem()
     av_monthly_charges_by_sociodem_line(charges_by_sociodem)
+
+    churn_by_age_group_monthly_mean_bar(by_age_group)
+    churn_by_partner_monthly_mean_bar(by_partner)
+    churn_by_dependents_monthly_mean_bar(by_dependents)
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
