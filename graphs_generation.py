@@ -5,47 +5,19 @@ from functions import tenure, monthly_charges
 
 
 def tenure_histogram(tenure_data):
-    plt.figure(figsize=(10, 6))
-    plt.hist(tenure_data, bins=25, color='#034362', edgecolor='w', alpha=0.95)
-    plt.xlabel('Tenure')
-    plt.ylabel('Number of Contracts')
-    plt.title('Distribution of Tenure')
-
-    plt.savefig('static/graphs/tenure_histogram.png')
-    plt.close()
+    summary_statistics_histogram(tenure_data, 'tenure')
 
 
 def tenure_boxplot(tenure_data):
-    plt.figure(figsize=(6, 2))
-    box_plot = plt.boxplot(tenure_data, vert=False, patch_artist=True, boxprops=dict(facecolor='#034362'))
-    for median in box_plot['medians']:
-        median.set_color('white')
-    plt.yticks([])
-
-    plt.savefig('static/graphs/tenure_boxplot.png')
-    plt.close()
+    summary_statistics_boxplot(tenure_data, 'tenure')
 
 
 def monthly_charges_histogram(charges_data):
-    plt.figure(figsize=(10, 6))
-    plt.hist(charges_data, bins=25, color='#034362', edgecolor='w', alpha=0.95)
-    plt.xlabel('Monthly Charges')
-    plt.ylabel('Number of Contracts')
-    plt.title('Distribution of Monthly Charges')
-
-    plt.savefig('static/graphs/monthly_charges_histogram.png')
-    plt.close()
+    summary_statistics_histogram(charges_data, 'monthly charges')
 
 
 def monthly_charges_boxplot(charges_data):
-    plt.figure(figsize=(6, 2))
-    box_plot = plt.boxplot(charges_data, vert=False, patch_artist=True, boxprops=dict(facecolor='#034362'))
-    for median in box_plot['medians']:
-        median.set_color('white')
-    plt.yticks([])
-
-    plt.savefig('static/graphs/monthly_charges_boxplot.png')
-    plt.close()
+    summary_statistics_boxplot(charges_data, 'monthly charges')
 
 
 def churn_pie(churn_data):
@@ -62,34 +34,11 @@ def churn_pie(churn_data):
 
 
 def tenure_churn_bar(tenure_churn_data):
-    fig, ax = plt.subplots(figsize=(8, 5))
-    tenure_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1, ax=ax)
-    plt.title('Churn by Tenure')
-    plt.xlabel('Tenure')
-    plt.xticks(rotation=0, fontsize=7)
-    plt.legend(title='Churn')
-    for container in ax.containers:
-        ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
-    plt.tight_layout()
-
-    plt.savefig('static/graphs/tenure_churn_bar.png')
-    plt.close()
+    churn_bar(tenure_churn_data, 'tenure')
 
 
 def monthly_charges_churn_bar(monthly_charges_churn_data):
-    fig, ax = plt.subplots(figsize=(8, 5))
-    monthly_charges_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1,
-                                    ax=ax)
-    plt.title('Churn by Monthly Charges')
-    plt.xlabel('Monthly Charges')
-    plt.xticks(rotation=0, fontsize=6)
-    plt.legend(title='Churn')
-    for container in ax.containers:
-        ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
-    plt.tight_layout()
-
-    plt.savefig('static/graphs/monthly_charges_churn_bar.png')
-    plt.close()
+    churn_bar(monthly_charges_churn_data, 'monthly charges')
 
 
 def monthly_total_churn_bar(summary):
@@ -110,132 +59,133 @@ def monthly_total_churn_bar(summary):
 
 
 def age_group_bar(age_group_data):
-    plt.figure(figsize=(5, 3))
-    bars = plt.bar(age_group_data.index, age_group_data.values, color=['#0B9AB6', '#034362'])
-    plt.title('Age Group')
-    plt.ylabel('Number of Contracts', fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1], labels=['Age < 65', 'Age > 65'], fontsize=8)
-
-    data_sum = sum(list(age_group_data))
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
-                 ha='center', color='white',
-                 fontsize=10)
-
-    plt.savefig('static/graphs/age_group_bar.png')
-    plt.close()
+    two_bars(age_group_data, 'age group', ['Age < 65', 'Age > 65'])
 
 
 def churn_by_age_group_monthly_mean_bar(mean_data):
-    data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
-
-    labels = list(data.keys())
-    values = list(data.values())
-
-    fig, ax = plt.subplots(figsize=(5, 2))
-
-    color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
-
-    data_sum = sum(values)
-    bar_widths = [val / data_sum * 100 for val in values]
-    bars = ax.barh(labels, bar_widths, height=0.9, color=color)
-
-    for bar in bars:
-        width = bar.get_width()
-        ax.text(width, bar.get_y() + bar.get_height() / 2,
-                f'{round(width)}% ', ha='right', va='center', color='white')
-
-    plt.xticks(fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.title('Share of average monthly charges\n by churn and age group')
-    plt.tight_layout()
-
-    plt.savefig('static/graphs/churn_by_age_group_monthly_mean_bar.png')
-    plt.close()
+    churn_by_sociodem_monthly_mean_bar(mean_data, 'age group')
 
 
 def partner_bar(partner_data):
-    plt.figure(figsize=(5, 3))
-    bars = plt.bar(partner_data.index, partner_data.values, color=['#0B9AB6', '#034362'])
-    plt.title('Partnership')
-    plt.ylabel('Number of Contracts', fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1], labels=['Has no partner', 'Has partner'], fontsize=8)
-
-    data_sum = sum(list(partner_data))
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
-                 ha='center', color='white',
-                 fontsize=10)
-
-    plt.savefig('static/graphs/partner_bar.png')
-    plt.close()
+    two_bars(partner_data, 'partner', ['Has no partner', 'Has partner'])
 
 
 def churn_by_partner_monthly_mean_bar(mean_data):
-    data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
-
-    labels = list(data.keys())
-    values = list(data.values())
-
-    fig, ax = plt.subplots(figsize=(5, 2))
-
-    color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
-
-    data_sum = sum(values)
-    bar_widths = [val / data_sum * 100 for val in values]
-    bars = ax.barh(labels, bar_widths, height=0.9, color=color)
-
-    for bar in bars:
-        width = bar.get_width()
-        ax.text(width, bar.get_y() + bar.get_height() / 2,
-                f'{round(width)}% ', ha='right', va='center', color='white')
-
-    plt.xticks(fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.title('Share of average monthly charges\n by churn and partnership')
-    plt.tight_layout()
-
-    plt.savefig('static/graphs/churn_by_partner_monthly_mean_bar.png')
-    plt.close()
+    churn_by_sociodem_monthly_mean_bar(mean_data, 'partner')
 
 
 def dependents_bar(dependents_data):
+    two_bars(dependents_data, 'dependents', ['Has no dependents', 'Has dependents'])
+
+
+def churn_by_dependents_monthly_mean_bar(mean_data):
+    churn_by_sociodem_monthly_mean_bar(mean_data, 'partner')
+
+
+def av_tenure_by_sociodem_line(sociodem_data):
+    av_by_sociodem_line(sociodem_data, 'tenure', tenure())
+
+
+def av_monthly_charges_by_sociodem_line(sociodem_data):
+    av_by_sociodem_line(sociodem_data, 'monthly charges', monthly_charges())
+
+
+def phone_bar(phone_data):
+    two_bars(phone_data, 'Phone Service', ['Has phone service', 'Has no phone service'])
+
+
+def internet_bar(internet_data):
+    three_bars(internet_data, 'internet service', ['fiber optic', 'dsl', 'has no internet service'])
+
+
+def streaming_tv_bar(streaming_tv_data):
+    three_bars(streaming_tv_data, 'streaming service', ['has no tv', 'has tv', 'has no internet service'])
+
+
+def summary_statistics_histogram(tenure_data, name):
+    plt.figure(figsize=(10, 6))
+    plt.hist(tenure_data, bins=25, color='#0B9AB6', edgecolor='w', alpha=0.95)
+    plt.ylabel('Number of Contracts')
+    plt.title(f'Distribution of {name.title()}')
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_histogram.png')
+    plt.close()
+
+
+def summary_statistics_boxplot(tenure_data, name):
+    plt.figure(figsize=(5, 1.5))
+    box_plot = plt.boxplot(tenure_data, vert=False, patch_artist=True, boxprops=dict(facecolor='#0B9AB6'), widths=0.6)
+    for median in box_plot['medians']:
+        median.set_color('white')
+    plt.xticks(fontsize=7)
+    plt.yticks([])
+    plt.xlabel(f'{name.title()}', fontsize=7)
+    plt.tight_layout()
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_boxplot.png')
+    plt.close()
+
+
+def churn_bar(tenure_churn_data, name):
+    fig, ax = plt.subplots(figsize=(8, 5))
+    tenure_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1, ax=ax)
+    plt.title(f'Churn by {name.title()}')
+    plt.xlabel(f'{name.title()}')
+    plt.xticks(rotation=0, fontsize=7)
+    plt.legend(title='Churn')
+    for container in ax.containers:
+        ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
+    plt.tight_layout()
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_churn_bar.png')
+    plt.close()
+
+
+def two_bars(data, name, labels):
     plt.figure(figsize=(5, 3))
-    bars = plt.bar(dependents_data.index, dependents_data.values, color=['#0B9AB6', '#034362'])
-    plt.title('Dependents')
+    bars = plt.bar(data.index, data.values, color=['#0B9AB6', '#034362'])
+    plt.title(f'{name.title()}')
     plt.ylabel('Number of Contracts', fontsize=7)
     plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1], labels=['Has no dependents', 'Has dependents'], fontsize=8)
+    plt.xticks(ticks=[0, 1], labels=labels, fontsize=8)
 
-    data_sum = sum(list(dependents_data))
+    data_sum = sum(list(data))
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
+                 ha='center', color='white',
+                 fontsize=10)
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_bar.png')
+    plt.close()
+
+
+def three_bars(data, name, labels):
+    plt.figure(figsize=(5, 3))
+    bars = plt.bar(data.index, data.values, color=['#0B9AB6', '#0283C5', '#034362'])
+    plt.title(f'{name.title()}')
+    plt.ylabel('Number of Contracts', fontsize=7)
+    plt.yticks(fontsize=7)
+    plt.xticks(ticks=[0, 1, 2], labels=labels, fontsize=8)
+
+    data_sum = sum(list(data))
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
                  ha='center', color='white',
                  fontsize=10)
 
-    plt.savefig('static/graphs/dependents_bar.png')
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_bar.png')
     plt.close()
 
 
-def churn_by_dependents_monthly_mean_bar(mean_data):
+def churn_by_sociodem_monthly_mean_bar(mean_data, name):
     data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
 
     labels = list(data.keys())
     values = list(data.values())
 
     fig, ax = plt.subplots(figsize=(5, 2))
-
     color = ['#0B9AB6' if 'Active' in label else '#034362' for label in labels]
-
     data_sum = sum(values)
     bar_widths = [val / data_sum * 100 for val in values]
     bars = ax.barh(labels, bar_widths, height=0.9, color=color)
-
     for bar in bars:
         width = bar.get_width()
         ax.text(width, bar.get_y() + bar.get_height() / 2,
@@ -243,98 +193,29 @@ def churn_by_dependents_monthly_mean_bar(mean_data):
 
     plt.xticks(fontsize=7)
     plt.yticks(fontsize=7)
-    plt.title('Share of average monthly charges\n by churn and dependents')
+    plt.title(f'Share of average monthly charges\n by churn and {name}')
     plt.tight_layout()
 
-    plt.savefig('static/graphs/churn_by_dependents_monthly_mean_bar.png')
+    plt.savefig(f'static/graphs/churn_by_{name.replace(" ", "_")}_monthly_mean_bar.png')
     plt.close()
 
 
-def av_tenure_by_sociodem_line(sociodem_data):
+def av_by_sociodem_line(sociodem_data, name, data_function):
     plt.figure(figsize=(6, 4))
-
     color = ['#0B9AB6', '#0283C5', '#034362']
+
     sociodem_data[0].plot(kind='line', marker='o', color=color[0], label='Over 65')
     sociodem_data[1].plot(kind='line', marker='o', color=color[1], label='Dependents')
     sociodem_data[2].plot(kind='line', marker='o', color=color[2], label='Partner')
 
-    plt.title('Average Tenure by Sociodem')
+    plt.title(f'Average {name.title()} by Sociodem')
     plt.xlabel('Sociodemographics')
-    plt.ylabel('Average Tenure')
+    plt.ylabel(f'Average {name.title()}')
     plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
-    y_ticks = np.arange(0, tenure().iloc[-1] + 1, 5)
+    y_ticks = np.arange(0, data_function.iloc[-1] + 1, 10)
     plt.yticks(ticks=y_ticks, labels=[str(int(round(tick))) for tick in y_ticks])
     plt.yticks(fontsize=6)
     plt.legend()
 
-    plt.savefig('static/graphs/tenure_by_sociodem_line.png')
-    plt.close()
-
-
-def av_monthly_charges_by_sociodem_line(sociodem_data):
-    plt.figure(figsize=(6, 4))
-    color = ['#0B9AB6', '#0283C5', '#034362']
-    sociodem_data[0].plot(kind='line', marker='o', color=color[0], label='Over 65')
-    sociodem_data[1].plot(kind='line', marker='o', color=color[1], label='Dependents')
-    sociodem_data[2].plot(kind='line', marker='o', color=color[2], label='Partner')
-
-    plt.title('Average Monthly Charges by Sociodem')
-    plt.xlabel('Sociodemographics')
-    plt.ylabel('Average Monthly Charges')
-    plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
-    min_value = min(10, monthly_charges().min())
-    y_ticks = np.arange(min_value, monthly_charges().iloc[-1] + 1, 10)
-    plt.yticks(ticks=y_ticks, labels=[str(int(tick)) for tick in y_ticks])
-    plt.yticks(fontsize=6)
-    plt.legend()
-
-    plt.savefig('static/graphs/monthly_by_sociodem_line.png')
-    plt.close()
-
-
-def phone_bar(phone_data):
-    plt.figure(figsize=(5, 3))
-    bars = plt.bar(phone_data.index, phone_data.values, color=['#0B9AB6', '#034362'])
-    plt.title('Phone Service')
-    plt.ylabel('Number of Contracts', fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1], labels=['Has phone service', 'Has no phone service'], fontsize=8)
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
-                 fontsize=10)
-
-    plt.savefig('static/graphs/phone_bar.png')
-    plt.close()
-
-
-def internet_bar(internet_data):
-    plt.figure(figsize=(5, 3))
-    bars = plt.bar(internet_data.index, internet_data.values, color=['#0B9AB6', '#0283C5', '#034362'])
-    plt.title('Internet Service')
-    plt.ylabel('Number of Contracts', fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1, 2], labels=['fiber optic', 'dsl', 'has no internet service'], fontsize=8)
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
-                 fontsize=10)
-
-    plt.savefig('static/graphs/internet_bar.png')
-    plt.close()
-
-
-def streaming_tv_bar(streaming_tv_data):
-    plt.figure(figsize=(5, 3))
-    bars = plt.bar(streaming_tv_data.index, streaming_tv_data.values, color=['#0B9AB6', '#0283C5', '#034362'])
-    plt.title('Streaming TV Service')
-    plt.ylabel('Number of Contracts', fontsize=7)
-    plt.yticks(fontsize=7)
-    plt.xticks(ticks=[0, 1, 2], labels=['has no tv', 'has tv', 'has no internet service'], fontsize=8)
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, yval, va='top', ha='center', color='white',
-                 fontsize=10)
-
-    plt.savefig('static/graphs/streaming_tv_bar.png')
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_by_sociodem_line.png')
     plt.close()

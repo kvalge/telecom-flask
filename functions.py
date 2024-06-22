@@ -31,7 +31,7 @@ def tenure():
     return data['Tenure']
 
 
-def monthly_charges_statistics():
+def monthly_charges_summary_statistics():
     monthly_charges_mean = round(data['Monthly_Charges'].mean(), 2)
     monthly_charges_median = data['Monthly_Charges'].median()
     monthly_charges_min = data['Monthly_Charges'].min()

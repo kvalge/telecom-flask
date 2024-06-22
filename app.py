@@ -12,7 +12,7 @@ def summary():
     tenure_histogram(tenure_data)
     tenure_boxplot(tenure_data)
 
-    monthly_stat = monthly_charges_statistics()
+    monthly_stat = monthly_charges_summary_statistics()
     charges_data = monthly_charges()
     monthly_charges_histogram(charges_data)
     monthly_charges_boxplot(charges_data)
