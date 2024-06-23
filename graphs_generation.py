@@ -45,14 +45,35 @@ def monthly_total_churn_bar(summary):
     fig, ax = plt.subplots(figsize=(8, 5))
     bar_width = 0.9
     indices = np.arange(len(summary))
-    ax.bar(indices, summary['Yes'], bar_width, label='Churn Yes', color='#034362')
-    ax.bar(indices, summary['No'], bar_width, bottom=summary['Yes'], label='Churn No', color='#0B9AB6')
+
+    total_charges = summary['Yes'] + summary['No']
+    total_charges_sum = total_charges.sum()
+
+    bars_terminated = ax.bar(indices, summary['Yes'], bar_width, label='Terminated', color='#034362')
+    bars_active = ax.bar(indices, summary['No'], bar_width, bottom=summary['Yes'], label='Active', color='#0B9AB6')
     ax.set_title('Total Revenue by Monthly Charges and Churn')
     ax.set_xlabel('Monthly Charges')
     ax.set_ylabel('Total Charges')
     ax.set_xticks(indices)
     ax.set_xticklabels([f'{interval.left:.0f}-{interval.right:.0f}' for interval in summary.index], rotation=0)
+    plt.xticks(fontsize=7)
+    plt.yticks(fontsize=7)
     ax.legend()
+
+    for i, (bar_terminated, bar_active) in enumerate(zip(bars_terminated, bars_active)):
+        bar_total = bar_terminated.get_height() + bar_active.get_height()
+        percentage = (bar_total / total_charges_sum) * 100
+        ax.text(bar_terminated.get_x() + bar_terminated.get_width() / 2,
+                bar_total,
+                f'{percentage:.1f}%',
+                ha='center',
+                va='bottom',
+                fontsize=8)
+
+    explanation = (
+        "Percentage shows share of total charges \nof every monthly charges bin of \nall sum of total charges"
+    )
+    plt.gcf().text(0.32, 0.75, explanation, ha='center', va='top', fontsize=10, multialignment='left')
 
     plt.savefig('static/graphs/monthly_total_churn_bar.png')
     plt.close()
@@ -107,6 +128,7 @@ def summary_statistics_histogram(tenure_data, name):
     plt.hist(tenure_data, bins=25, color='#0B9AB6', edgecolor='w', alpha=0.95)
     plt.ylabel('Number of Contracts')
     plt.title(f'Distribution of {name.title()}')
+
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_histogram.png')
     plt.close()
 
@@ -120,6 +142,7 @@ def summary_statistics_boxplot(tenure_data, name):
     plt.yticks([])
     plt.xlabel(f'{name.title()}', fontsize=7)
     plt.tight_layout()
+
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_boxplot.png')
     plt.close()
 
@@ -130,10 +153,12 @@ def churn_bar(tenure_churn_data, name):
     plt.title(f'Churn by {name.title()}')
     plt.xlabel(f'{name.title()}')
     plt.xticks(rotation=0, fontsize=7)
+    plt.yticks(fontsize=7)
     plt.legend(title='Churn')
     for container in ax.containers:
         ax.bar_label(container, label_type='center', fmt='%.2f', fontsize=8, color='white')
     plt.tight_layout()
+
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_churn_bar.png')
     plt.close()
 
@@ -152,6 +177,7 @@ def two_bars(data, name, labels):
         plt.text(bar.get_x() + bar.get_width() / 2, yval - yval * 0.1, f'{round(yval / data_sum * 100)}%', va='top',
                  ha='center', color='white',
                  fontsize=10)
+
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_bar.png')
     plt.close()
 
@@ -214,7 +240,7 @@ def av_by_sociodem_line(sociodem_data, name, data_function):
     plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
     y_ticks = np.arange(0, data_function.iloc[-1] + 1, 10)
     plt.yticks(ticks=y_ticks, labels=[str(int(round(tick))) for tick in y_ticks])
-    plt.yticks(fontsize=6)
+    plt.yticks(fontsize=7)
     plt.legend()
 
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_by_sociodem_line.png')

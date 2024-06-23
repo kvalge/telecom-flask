@@ -107,7 +107,8 @@ def monthly_total_charges_churn():
     data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
     data.dropna(subset=['Total_Charges'])
 
-    bins = np.arange(10, 120, 10)
+    bins = np.arange(10, max(list(monthly_charges())) + 10, 10)
+
     data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
 
     monthly_total_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn'])[
