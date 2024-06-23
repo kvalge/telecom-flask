@@ -100,7 +100,7 @@ def dependents_bar(dependents_data):
 
 
 def churn_by_dependents_monthly_mean_bar(mean_data):
-    churn_by_sociodem_monthly_mean_bar(mean_data, 'partner')
+    churn_by_sociodem_monthly_mean_bar(mean_data, 'dependents')
 
 
 def av_tenure_by_sociodem_line(sociodem_data):
@@ -152,7 +152,7 @@ def churn_bar(tenure_churn_data, name):
     tenure_churn_data.plot(kind='bar', stacked=True, color=['#0B9AB6', '#034362'], edgecolor='w', width=1, ax=ax)
     plt.title(f'Churn by {name.title()}')
     plt.xlabel(f'{name.title()}')
-    plt.xticks(rotation=0, fontsize=7)
+    plt.xticks(rotation=0, fontsize=6)
     plt.yticks(fontsize=7)
     plt.legend(title='Churn')
     for container in ax.containers:
@@ -219,7 +219,7 @@ def churn_by_sociodem_monthly_mean_bar(mean_data, name):
 
     plt.xticks(fontsize=7)
     plt.yticks(fontsize=7)
-    plt.title(f'Share of average monthly charges\n by churn and {name}')
+    plt.title(f'Share of average monthly charges\nby churn and {name}')
     plt.tight_layout()
 
     plt.savefig(f'static/graphs/churn_by_{name.replace(" ", "_")}_monthly_mean_bar.png')

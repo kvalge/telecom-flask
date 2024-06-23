@@ -56,18 +56,18 @@ def sociodem_page():
     dependents_bar(dependents_data)
 
     by_age_group = churn_by_age_group_monthly_mean()
-    by_dependents = churn_by_dependents_monthly_mean()
     by_partner = churn_by_partner_monthly_mean()
+    by_dependents = churn_by_dependents_monthly_mean()
+
+    churn_by_age_group_monthly_mean_bar(by_age_group)
+    churn_by_partner_monthly_mean_bar(by_partner)
+    churn_by_dependents_monthly_mean_bar(by_dependents)
 
     tenure_by_sociodem = av_tenure_by_sociodem()
     av_tenure_by_sociodem_line(tenure_by_sociodem)
 
     charges_by_sociodem = av_monthly_charges_by_sociodem()
     av_monthly_charges_by_sociodem_line(charges_by_sociodem)
-
-    churn_by_age_group_monthly_mean_bar(by_age_group)
-    churn_by_partner_monthly_mean_bar(by_partner)
-    churn_by_dependents_monthly_mean_bar(by_dependents)
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
