@@ -4,6 +4,9 @@ import numpy as np
 
 data = read_data()
 
+data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
+data.dropna(subset=['Total_Charges'])
+
 
 def tenure_summary_statistics():
     tenure_mean = round(data['Tenure'].mean(), 1)
@@ -104,9 +107,6 @@ def monthly_charges_churn():
 
 
 def monthly_total_charges_churn():
-    data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
-    data.dropna(subset=['Total_Charges'])
-
     bins = np.arange(10, max(list(monthly_charges())) + 10, 10)
 
     data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
@@ -236,6 +236,16 @@ def av_monthly_charges_by_sociodem():
     av_partner = data.groupby('Partner')['Monthly_Charges'].mean()
 
     return av_age, av_dependents, av_partner
+
+
+def total_charges_churn_by_sociodem():
+    total_charges = data.groupby(['Churn', 'Senior_Citizen', 'Partner', 'Dependents'])['Total_Charges'].sum()
+    return total_charges
+
+
+def total_charges_churn_by_services():
+    total_charges = data.groupby(['Churn', 'Phone_Service', 'Internet_Service', 'Streaming_TV'])['Total_Charges'].sum()
+    return total_charges
 
 
 def phone_statistics():

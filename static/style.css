@@ -69,3 +69,15 @@ h1 {
 .one-graph {
     text-align: center;
 }
+
+.wide_graph {
+    max-width: 900px;
+    text-align: left;
+    height: auto;
+    margin: 0 auto;
+}
+
+h6 {
+    color: #57d9f3;
+    text-decoration: none;
+}

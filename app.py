@@ -105,5 +105,13 @@ def services_page():
                            by_streaming_tv=by_streaming_tv)
 
 
+@app.route('/profitability', methods=['GET'])
+def profitability_page():
+    total_charges_churn_by_sociodem_treemap(total_charges_churn_by_sociodem())
+    total_charges_churn_by_services_treemap(total_charges_churn_by_services())
+
+    return render_template('profitability.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

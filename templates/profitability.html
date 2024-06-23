@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="frame">
+        <h1>The Most Profitable Customers</h1>
+
+        <h2>By Sociodemographics</h2>
+        <div>
+            <div>
+                <img src="{{ url_for('static', filename='graphs/total_charges_churn_by_sociodemographics_treemap.png') }}"
+                     alt="Total Charges Churn by Sociodem" class="wide_graph">
+            </div>
+        </div>
+
+        <h2>By Services</h2>
+        <div>
+            <div>
+                <img src="{{ url_for('static', filename='graphs/total_charges_churn_by_services_treemap.png') }}"
+                     alt="Total Charges Churn by Services" class="wide_graph">
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

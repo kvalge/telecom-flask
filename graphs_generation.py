@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import squarify
+import seaborn as sns
 
 from functions import tenure, monthly_charges
 
@@ -123,6 +125,24 @@ def streaming_tv_bar(streaming_tv_data):
     three_bars(streaming_tv_data, 'streaming service', ['has no tv', 'has tv', 'has no internet service'])
 
 
+def total_charges_churn_by_sociodem_treemap(sociodem_data):
+    total_charges_churn_treemap(sociodem_data,
+                                'sociodemographics',
+                                ['Age over 65', 'Partner', 'Dependents'],
+                                12,
+                                9,
+                                14)
+
+
+def total_charges_churn_by_services_treemap(sociodem_data):
+    total_charges_churn_treemap(sociodem_data,
+                                'services',
+                                ['Phone', 'Internet', 'TV'],
+                                17,
+                                13,
+                                20)
+
+
 def summary_statistics_histogram(tenure_data, name):
     plt.figure(figsize=(10, 6))
     plt.hist(tenure_data, bins=25, color='#0B9AB6', edgecolor='w', alpha=0.95)
@@ -244,4 +264,21 @@ def av_by_sociodem_line(sociodem_data, name, data_function):
     plt.legend()
 
     plt.savefig(f'static/graphs/{name.replace(" ", "_")}_by_sociodem_line.png')
+    plt.close()
+
+
+def total_charges_churn_treemap(sociodem_data, name, labels, figsize1, figsize2, title_size):
+    total_sum = sociodem_data.sum()
+    total_sum_percentage = sociodem_data / total_sum * 100
+    labels = [f'Churn: {key[0]}\n{labels[0]}: {key[1]}\n{labels[1]}]: {key[2]}\n{labels[2]}: {key[3]}\n{value:.1f}%'
+              for key, value in zip(total_sum_percentage.index, total_sum_percentage.values)]
+    sizes = total_sum_percentage.values
+    fig, ax = plt.subplots(1, 1, figsize=(figsize1, figsize2))
+    palette = sns.cubehelix_palette(start=0.1, rot=-0.2, light=0.9, as_cmap=False)
+    color = palette.as_hex()
+    squarify.plot(sizes=sizes, label=labels, ax=ax, alpha=0.8, color=color)
+    ax.axis('off')
+    plt.title(f'Total Charges Percentage by Churn and {name.title()}', fontsize=title_size)
+    plt.tight_layout()
+    plt.savefig(f'static/graphs/total_charges_churn_by_{name}_treemap.png')
     plt.close()
