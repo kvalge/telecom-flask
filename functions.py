@@ -4,9 +4,6 @@ import numpy as np
 
 data = read_data()
 
-data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
-data.dropna(subset=['Total_Charges'])
-
 
 def tenure_summary_statistics():
     tenure_mean = round(data['Tenure'].mean(), 1)

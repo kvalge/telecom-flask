@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import squarify
-import seaborn as sns
 
 from functions import tenure, monthly_charges
 
@@ -139,7 +138,7 @@ def total_charges_churn_by_services_treemap(sociodem_data):
                                 'services',
                                 ['Phone', 'Internet', 'TV'],
                                 17,
-                                13,
+                                14,
                                 20)
 
 
@@ -267,15 +266,17 @@ def av_by_sociodem_line(sociodem_data, name, data_function):
     plt.close()
 
 
-def total_charges_churn_treemap(sociodem_data, name, labels, figsize1, figsize2, title_size):
+def total_charges_churn_treemap(sociodem_data, name, labels, fig1, fig2, title_size):
     total_sum = sociodem_data.sum()
     total_sum_percentage = sociodem_data / total_sum * 100
     labels = [f'Churn: {key[0]}\n{labels[0]}: {key[1]}\n{labels[1]}]: {key[2]}\n{labels[2]}: {key[3]}\n{value:.1f}%'
               for key, value in zip(total_sum_percentage.index, total_sum_percentage.values)]
     sizes = total_sum_percentage.values
-    fig, ax = plt.subplots(1, 1, figsize=(figsize1, figsize2))
-    palette = sns.cubehelix_palette(start=0.1, rot=-0.2, light=0.9, as_cmap=False)
-    color = palette.as_hex()
+    fig, ax = plt.subplots(1, 1, figsize=(fig1, fig2))
+    color = ['#034362', '#0e5d83', '#2183b2', '#3d9fce', '#56add7', '#6abae1', '#81c4e5',
+             '#97cde8', '#b6dcef', '#8fabb9', '#6c91a4', '#48758c', '#2c556b', '#0B9AB6']
+    # palette = sns.cubehelix_palette(start=0.1, rot=-0.1, light=0.9, as_cmap=False)
+    # color = palette.as_hex()
     squarify.plot(sizes=sizes, label=labels, ax=ax, alpha=0.8, color=color)
     ax.axis('off')
     plt.title(f'Total Charges Percentage by Churn and {name.title()}', fontsize=title_size)
