@@ -1,28 +1,69 @@
 Number of rows: 7043
 Number of columns: 21
 
-Column names:
-	LoyaltyID
-	Customer_ID
-	Senior_Citizen
-	Partner
-	Dependents
-	Tenure
-	Phone_Service
-	Multiple_Lines
-	Internet_Service
-	Online_Security
-	Online_Backup
-	Device_Protection
-	Tech_Support
-	Streaming_TV
-	Streaming_Movies
-	Contract
-	Paperless_Billing
-	Payment_Method
-	Monthly_Charges
-	Total_Charges
-	Churn
+Column types: 
+LoyaltyID              int64
+Customer_ID           object
+Senior_Citizen        object
+Partner               object
+Dependents            object
+Tenure                 int64
+Phone_Service         object
+Multiple_Lines        object
+Internet_Service      object
+Online_Security       object
+Online_Backup         object
+Device_Protection     object
+Tech_Support          object
+Streaming_TV          object
+Streaming_Movies      object
+Contract              object
+Paperless_Billing     object
+Payment_Method        object
+Monthly_Charges      float64
+Total_Charges         object
+Churn                 object
+dtype: object
+
+Missing values: 
+LoyaltyID            0
+Customer_ID          0
+Senior_Citizen       0
+Partner              0
+Dependents           0
+Tenure               0
+Phone_Service        0
+Multiple_Lines       0
+Internet_Service     0
+Online_Security      0
+Online_Backup        0
+Device_Protection    0
+Tech_Support         0
+Streaming_TV         0
+Streaming_Movies     0
+Contract             0
+Paperless_Billing    0
+Payment_Method       0
+Monthly_Charges      0
+Total_Charges        0
+Churn                0
+dtype: int64
+
+Rows of missing values of "Total Charges" column: 
+      LoyaltyID Customer_ID Senior_Citizen  ... Monthly_Charges Total_Charges  Churn
+488      344543  4472-LVYGI             No  ...           52.55             _     No
+753      150036  3115-CZMZD             No  ...           20.25             _     No
+936      497688  5709-LVOEQ             No  ...           80.85             _     No
+1082     158969  4367-NUYAO             No  ...           25.75             _     No
+1340     470044  1371-DWPAZ             No  ...           56.05             _     No
+3331     937662  7644-OMVMY             No  ...           19.85             _     No
+3826     821083  3213-VVOLG             No  ...           25.35             _     No
+4380     947028  2520-SGTTA             No  ...           20.00             _     No
+5218     135257  2923-ARZLG             No  ...           19.70             _     No
+6670     317862  4075-WKNIU             No  ...           73.35             _     No
+6754     392646  2775-SEFEE             No  ...           61.90             _     No
+
+[11 rows x 21 columns]
 
 Data of the first row:
  LoyaltyID                      318537
