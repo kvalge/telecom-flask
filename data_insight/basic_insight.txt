@@ -1,0 +1,197 @@
+Number of rows: 7043
+Number of columns: 21
+
+Column names:
+	LoyaltyID
+	Customer_ID
+	Senior_Citizen
+	Partner
+	Dependents
+	Tenure
+	Phone_Service
+	Multiple_Lines
+	Internet_Service
+	Online_Security
+	Online_Backup
+	Device_Protection
+	Tech_Support
+	Streaming_TV
+	Streaming_Movies
+	Contract
+	Paperless_Billing
+	Payment_Method
+	Monthly_Charges
+	Total_Charges
+	Churn
+
+Data of the first row:
+ LoyaltyID                      318537
+Customer_ID                7590-VHVEG
+Senior_Citizen                     No
+Partner                           Yes
+Dependents                         No
+Tenure                              1
+Phone_Service                      No
+Multiple_Lines       No_phone_service
+Internet_Service                  DSL
+Online_Security                    No
+Online_Backup                     Yes
+Device_Protection                  No
+Tech_Support                       No
+Streaming_TV                       No
+Streaming_Movies                   No
+Contract               Month-to-month
+Paperless_Billing                 Yes
+Payment_Method       Electronic_check
+Monthly_Charges                 29.85
+Total_Charges                   29.85
+Churn                              No
+Name: 0, dtype: object
+
+Selecting a section of first 3 rows of customers id and monthly charges:
+   Customer_ID  Monthly_Charges
+0  7590-VHVEG            29.85
+1  5575-GNVDE            56.95
+2  3668-QPYBK            53.85
+
+Selecting a cell of first id: 
+ Customer_ID    7590-VHVEG
+Name: 0, dtype: object
+
+Selecting a cell of first id: 
+ 7590-VHVEG
+
+Mean of monthly charges: 64.76169246059918
+Max of monthly charges: 118.75
+Min of monthly charges: 18.25: 
+
+Mean of total charges: 2283.3004408418697
+Max of total charges: 8684.8
+Min of total charges: 18.8: 
+
+Count of churn: 
+Churn
+No     5174
+Yes    1869
+Name: Churn, dtype: int64
+
+Number of customers under and over 65: 
+Senior_Citizen
+No     5901
+Yes    1142
+Name: Senior_Citizen, dtype: int64
+
+Number of customers without and with partner: 
+Partner
+No     3641
+Yes    3402
+Name: Partner, dtype: int64
+
+Number of customers without and with dependents: 
+Dependents
+No     4933
+Yes    2110
+Name: Dependents, dtype: int64
+
+Mean of tenure: 32.37114865824223
+Max of tenure: 72
+Min of tenure: 0: 
+
+Count of phone services: 
+Phone_Service
+No      682
+Yes    6361
+Name: Phone_Service, dtype: int64
+
+Count of multiple telephone lines service: 
+Multiple_Lines
+No                  3390
+No_phone_service     682
+Yes                 2971
+Name: Multiple_Lines, dtype: int64
+
+Count of internet service: 
+Internet_Service
+DSL            2421
+Fiber_optic    3096
+No             1526
+Name: Internet_Service, dtype: int64
+
+Count of online security service: 
+Online_Security
+No                     3498
+No_internet_service    1526
+Yes                    2019
+Name: Online_Security, dtype: int64
+
+Count of online backup service: 
+Online_Backup
+No                     3088
+No_internet_service    1526
+Yes                    2429
+Name: Online_Backup, dtype: int64
+
+Count of device protection service: 
+Device_Protection
+No                     3095
+No_internet_service    1526
+Yes                    2422
+Name: Device_Protection, dtype: int64
+
+Count of tech support: 
+Tech_Support
+No                     3473
+No_internet_service    1526
+Yes                    2044
+Name: Tech_Support, dtype: int64
+
+Count of streaming TV: 
+Streaming_TV
+No                     2810
+No_internet_service    1526
+Yes                    2707
+Name: Streaming_TV, dtype: int64
+
+Count of streaming movies service: 
+Streaming_Movies
+No                     2785
+No_internet_service    1526
+Yes                    2732
+Name: Streaming_Movies, dtype: int64
+
+Count of contracts by period: 
+Contract
+Month-to-month    3875
+One_year          1473
+Two_year          1695
+Name: Contract, dtype: int64
+
+Count of contracts by period: 
+Contract
+Month-to-month    3875
+One_year          1473
+Two_year          1695
+Name: Contract, dtype: int64
+
+Count of billing by type: 
+Paperless_Billing
+No     2872
+Yes    4171
+Name: Paperless_Billing, dtype: int64
+
+Count of payment method by type: 
+Payment_Method
+Bank_transfer_(automatic)    1544
+Credit_card_(automatic)      1522
+Electronic_check             2365
+Mailed_check                 1612
+Name: Payment_Method, dtype: int64
+
+Count of payment method by type: 
+Payment_Method
+Bank_transfer_(automatic)    1544
+Credit_card_(automatic)      1522
+Electronic_check             2365
+Mailed_check                 1612
+Name: Payment_Method, dtype: int64
+
