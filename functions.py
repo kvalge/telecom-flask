@@ -1,8 +1,8 @@
-from read_data import read_data
+from data.clean_data import clean_data
 import pandas as pd
 import numpy as np
 
-data = read_data()
+data = clean_data()
 
 
 def tenure_summary_statistics():
