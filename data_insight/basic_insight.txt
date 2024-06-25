@@ -65,6 +65,16 @@ Rows of missing values of "Total Charges" column:
 
 [11 rows x 21 columns]
 
+Summary statistics:             Tenure  Monthly_Charges  Total_Charges
+count  7043.000000      7043.000000    7032.000000
+mean     32.371149        64.761692    2283.300441
+std      24.559481        30.090047    2266.771362
+min       0.000000        18.250000      18.800000
+25%       9.000000        35.500000     401.450000
+50%      29.000000        70.350000    1397.475000
+75%      55.000000        89.850000    3794.737500
+max      72.000000       118.750000    8684.800000
+
 Data of the first row:
  LoyaltyID                      318537
 Customer_ID                7590-VHVEG
@@ -106,7 +116,7 @@ Mean of monthly charges: 64.76169246059918
 Max of monthly charges: 118.75
 Min of monthly charges: 18.25: 
 
-Mean of total charges: 2283.3004408418697
+Mean of total charges: 2283.3004408418656
 Max of total charges: 8684.8
 Min of total charges: 18.8: 
 
@@ -235,4 +245,15 @@ Credit_card_(automatic)      1522
 Electronic_check             2365
 Mailed_check                 1612
 Name: Payment_Method, dtype: int64
+
+Churn share by age group:
+  Senior_Citizen  Churn  percentage
+0             No   1393       74.53
+1            Yes    476       25.47
+
+Tenure mean and std by churn:
+  Churn Tenure       
+          mean    std
+0    No  37.57  24.11
+1   Yes  17.98  19.53
 

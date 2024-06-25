@@ -19,5 +19,5 @@ openpyxl
 PyCharm 2023.2.1  
 
 ### Functionalities 
-inspect_data.py - run the file to see basic characteristics in data_insight folder.  
+inspect_data.py - running the file will create/update the basic_insight file in the data_insight folder.  
 app.py - run the app to see the charts on http://127.0.0.1:5000/ page.  

@@ -20,6 +20,11 @@ def inspect_data():
     invalid_rows = data[numeric_column.isna()]
     file.write(f'Rows of missing values of "Total Charges" column: \n{invalid_rows}\n' + '\n')
 
+    data['Total_Charges'] = pd.to_numeric(data['Total_Charges'], errors='coerce')
+    data.dropna(subset=['Total_Charges'])
+
+    file.write(f'Summary statistics: {data[["Tenure", "Monthly_Charges", "Total_Charges"]].describe()}\n' + '\n')
+
     file.write('Data of the first row:\n {}\n'.format(data.iloc[0]) + '\n')
 
     file.write('Selecting a section of first 3 rows of customers id and monthly charges:\n {}\n'.format(
@@ -95,6 +100,13 @@ def inspect_data():
 
     count_payment_method = data.groupby(['Payment_Method'])['Payment_Method'].count()
     file.write('Count of payment method by type: \n{}\n'.format(count_payment_method) + '\n')
+
+    churn_count = data[data.Churn == 'Yes'].groupby('Senior_Citizen').agg({'Churn': 'count'}).reset_index()
+    churn_count['percentage'] = 100 * churn_count.Churn / churn_count.Churn.sum()
+    file.write(f'Churn share by age group:\n{round(churn_count, 2)}\n' + '\n')
+
+    tenure_mean_std_by_churn = data.groupby('Churn').agg({'Tenure': ['mean', 'std']}).reset_index()
+    file.write(f'Tenure mean and std by churn:\n{round(tenure_mean_std_by_churn, 2)}\n' + '\n')
 
     file.close()
 
