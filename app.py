@@ -96,6 +96,10 @@ def services_page():
     by_internet = churn_by_internet_monthly_mean()
     by_streaming_tv = churn_by_streaming_tv_monthly_mean()
 
+    phone_churn_monthly_heatmap(churn_by_phone_monthly_mean_data())
+    internet_churn_monthly_heatmap(churn_by_internet_monthly_mean_data())
+    streaming_tv_churn_monthly_heatmap(churn_by_streaming_tv_monthly_mean_data())
+
     return render_template('services.html',
                            phone_stat=phone_stat,
                            internet_stat=internet_stat,

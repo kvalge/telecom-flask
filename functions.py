@@ -280,6 +280,12 @@ def churn_by_phone_monthly_mean():
     return by_mean
 
 
+def churn_by_phone_monthly_mean_data():
+    mean = data.groupby(['Churn', 'Phone_Service'])['Monthly_Charges'].mean().unstack()
+
+    return mean.round(2)
+
+
 def internet_statistics():
     dsl = data['Internet_Service'].value_counts()['DSL']
     fiber = data['Internet_Service'].value_counts()['Fiber_optic']
@@ -321,6 +327,12 @@ def churn_by_internet_monthly_mean():
     return by_mean
 
 
+def churn_by_internet_monthly_mean_data():
+    mean = data.groupby(['Churn', 'Internet_Service'])['Monthly_Charges'].mean().unstack()
+
+    return mean.round(2)
+
+
 def streaming_tv_statistics():
     tv_yes = data['Streaming_TV'].value_counts()['Yes']
     tv_no = data['Streaming_TV'].value_counts()['No']
@@ -360,3 +372,9 @@ def churn_by_streaming_tv_monthly_mean():
     }
 
     return by_mean
+
+
+def churn_by_streaming_tv_monthly_mean_data():
+    mean = data.groupby(['Churn', 'Streaming_TV'])['Monthly_Charges'].mean().unstack()
+
+    return mean.round(2)

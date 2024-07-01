@@ -24,13 +24,23 @@
 
         <div>
             <p>Average monthly charges by churn and phone service</p>
-            <div>
-                {% for key, value in by_phone.items() %}
-                    <p>{{ key }} : {{ value }}</p>
-                {% endfor %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_phone.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/phone_service_heatmap.png') }}"
+                             alt="Heatmap of Phone" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
+
         <h2>Internet Service</h2>
         <p>Does the customer have internet service</p>
 
@@ -51,13 +61,22 @@
 
         <div>
             <p>Average monthly charges by churn and internet service</p>
-            <div>
-                {% for key, value in by_internet.items() %}
-                    <p>{{ key }} : {{ value }}</p>
-                {% endfor %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_internet.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/internet_service_heatmap.png') }}"
+                             alt="Heatmap of Internet" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
         <br>
+
         <h2>Streaming TV Service</h2>
         <p>Does the customer have streaming TV service</p>
 
@@ -67,6 +86,7 @@
                     <p>{{ key }} : {{ value }}</p>
                 {% endfor %}
             </div>
+
             <div class="graph-frame">
                 <div>
                     <img src="{{ url_for('static', filename='graphs/streaming_service_bar.png') }}"
@@ -77,10 +97,19 @@
 
         <div>
             <p>Average monthly charges by churn and streaming TV service</p>
-            <div>
-                {% for key, value in by_streaming_tv.items() %}
-                    <p>{{ key }} : {{ value }}</p>
-                {% endfor %}
+            <div class="container">
+                <div>
+                    {% for key, value in by_streaming_tv.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/streaming_heatmap.png') }}"
+                             alt="Heatmap of Streaming TV" class="graph">
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import squarify
+import seaborn as sns
 
 from functions import tenure, monthly_charges
 
@@ -121,7 +122,30 @@ def internet_bar(internet_data):
 
 
 def streaming_tv_bar(streaming_tv_data):
-    three_bars(streaming_tv_data, 'streaming service', ['has no tv', 'has tv', 'has no internet service'])
+    three_bars(streaming_tv_data,
+               'streaming service',
+               ['has no tv', 'has tv', 'has no internet service'])
+
+
+def phone_churn_monthly_heatmap(by_mean):
+    service_churn_monthly_charges_heatmap(by_mean,
+                                          'phone service',
+                                          [00.5, 1.5],
+                                          ['has no phone service', 'has phone service'])
+
+
+def internet_churn_monthly_heatmap(by_mean):
+    service_churn_monthly_charges_heatmap(by_mean,
+                                          'internet service',
+                                          [0.5, 1.5, 2.5],
+                                          ['dsl', 'fiber optic', 'has no internet service'])
+
+
+def streaming_tv_churn_monthly_heatmap(by_mean):
+    service_churn_monthly_charges_heatmap(by_mean,
+                                          'streaming',
+                                          [0.5, 1.5, 2.5],
+                                          ['has no tv', 'has no internet service', 'has tv'])
 
 
 def total_charges_churn_by_sociodem_treemap(sociodem_data):
@@ -272,6 +296,7 @@ def total_charges_churn_treemap(sociodem_data, name, labels, fig1, fig2, title_s
     labels = [f'Churn: {key[0]}\n{labels[0]}: {key[1]}\n{labels[1]}]: {key[2]}\n{labels[2]}: {key[3]}\n{value:.1f}%'
               for key, value in zip(total_sum_percentage.index, total_sum_percentage.values)]
     sizes = total_sum_percentage.values
+
     fig, ax = plt.subplots(1, 1, figsize=(fig1, fig2))
     color = ['#034362', '#0e5d83', '#2183b2', '#3d9fce', '#56add7', '#6abae1', '#81c4e5',
              '#97cde8', '#b6dcef', '#8fabb9', '#6c91a4', '#48758c', '#2c556b', '#0B9AB6']
@@ -281,5 +306,22 @@ def total_charges_churn_treemap(sociodem_data, name, labels, fig1, fig2, title_s
     ax.axis('off')
     plt.title(f'Total Charges Percentage by Churn and {name.title()}', fontsize=title_size)
     plt.tight_layout()
+
     plt.savefig(f'static/graphs/total_charges_churn_by_{name}_treemap.png')
+    plt.close()
+
+
+def service_churn_monthly_charges_heatmap(by_mean, name, ticks, labels):
+    colors = ["#034362", "#0e5d83", "#0283C5", "#56add7", "#81c4e5", "#0B9AB6"]
+    cmap = sns.color_palette(colors, as_cmap=True)
+
+    plt.figure(figsize=(5, 4))
+    ax = sns.heatmap(by_mean, annot=True, cmap=cmap, linewidths=.5, fmt=".2f", cbar=False)
+    plt.title(f'Av. Monthly Charges by Churn and {name.title()}')
+    plt.xlabel(name.title())
+    plt.ylabel('Churn')
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(labels, minor=False, fontsize=7, ha='center')
+
+    plt.savefig(f'static/graphs/{name.replace(" ", "_")}_heatmap.png')
     plt.close()
