@@ -318,7 +318,7 @@ def service_churn_monthly_charges_heatmap(by_mean, name, ticks, labels):
     plt.figure(figsize=(5, 4))
     ax = sns.heatmap(by_mean, annot=True, cmap=cmap, linewidths=.5, fmt=".2f", cbar=False)
     plt.title(f'Av. Monthly Charges by Churn and {name.title()}')
-    plt.xlabel(name.title())
+    ax.set_xlabel(None)
     plt.ylabel('Churn')
     ax.set_xticks(ticks)
     ax.set_xticklabels(labels, minor=False, fontsize=7, ha='center')

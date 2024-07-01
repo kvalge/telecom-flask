@@ -117,5 +117,11 @@ def profitability_page():
     return render_template('profitability.html')
 
 
+@app.route('/tests', methods=['GET'])
+def tests_page():
+
+    return render_template('tests.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
