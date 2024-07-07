@@ -257,3 +257,72 @@ Tenure mean and std by churn:
 0    No  37.57  24.11
 1   Yes  17.98  19.53
 
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 Tenure   R-squared:                       0.205
+Model:                            OLS   Adj. R-squared:                  0.204
+Method:                 Least Squares   F-statistic:                     259.3
+Date:                Tue, 02 Jul 2024   Prob (F-statistic):               0.00
+Time:                        00:30:14   Log-Likelihood:                -31730.
+No. Observations:                7043   AIC:                         6.348e+04
+Df Residuals:                    7035   BIC:                         6.353e+04
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+====================================================================================================
+                                       coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------
+const                               18.2423      0.911     20.026      0.000      16.457      20.028
+Senior_Citizen_Yes                   0.1785      0.751      0.238      0.812      -1.294       1.651
+Partner_Yes                         17.1647      0.597     28.773      0.000      15.995      18.334
+Dependents_Yes                      -0.4833      0.667     -0.724      0.469      -1.792       0.825
+Phone_Service_Yes                    1.4114      1.062      1.329      0.184      -0.671       3.494
+Internet_Service_Fiber_optic        -2.8051      0.788     -3.557      0.000      -4.351      -1.259
+Internet_Service_No               1.407e+13   8.12e+13      0.173      0.862   -1.45e+14    1.73e+14
+Streaming_TV_No_internet_service -1.407e+13   8.12e+13     -0.173      0.862   -1.73e+14    1.45e+14
+Streaming_TV_Yes                    13.8474      0.605     22.902      0.000      12.662      15.033
+==============================================================================
+Omnibus:                     1017.296   Durbin-Watson:                   2.048
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              279.625
+Skew:                           0.185   Prob(JB):                     1.91e-61
+Kurtosis:                       2.097   Cond. No.                     7.27e+14
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 3.64e-26. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        Monthly_Charges   R-squared:                       0.934
+Model:                            OLS   Adj. R-squared:                  0.934
+Method:                 Least Squares   F-statistic:                 1.432e+04
+Date:                Tue, 02 Jul 2024   Prob (F-statistic):               0.00
+Time:                        00:30:14   Log-Likelihood:                -24375.
+No. Observations:                7043   AIC:                         4.877e+04
+Df Residuals:                    7035   BIC:                         4.882e+04
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+====================================================================================================
+                                       coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------
+const                               33.0155      0.321    102.987      0.000      32.387      33.644
+Senior_Citizen_Yes                  -0.4518      0.264     -1.709      0.087      -0.970       0.066
+Partner_Yes                          3.4359      0.210     16.365      0.000       3.024       3.847
+Dependents_Yes                      -0.0159      0.235     -0.068      0.946      -0.476       0.445
+Phone_Service_Yes                   22.9400      0.374     61.367      0.000      22.207      23.673
+Internet_Service_Fiber_optic        23.8295      0.277     85.872      0.000      23.286      24.373
+Internet_Service_No               3.196e+13   2.86e+13      1.119      0.263    -2.4e+13     8.8e+13
+Streaming_TV_No_internet_service -3.196e+13   2.86e+13     -1.119      0.263    -8.8e+13     2.4e+13
+Streaming_TV_Yes                    17.9947      0.213     84.563      0.000      17.578      18.412
+==============================================================================
+Omnibus:                        8.841   Durbin-Watson:                   2.040
+Prob(Omnibus):                  0.012   Jarque-Bera (JB):                9.154
+Skew:                           0.063   Prob(JB):                       0.0103
+Kurtosis:                       3.124   Cond. No.                     7.27e+14
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 3.64e-26. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.

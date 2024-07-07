@@ -1,6 +1,7 @@
 from data.clean_data import clean_data
 import pandas as pd
 import numpy as np
+import statsmodels.api as sm
 
 data = clean_data()
 
@@ -378,3 +379,14 @@ def churn_by_streaming_tv_monthly_mean_data():
     mean = data.groupby(['Churn', 'Streaming_TV'])['Monthly_Charges'].mean().unstack()
 
     return mean.round(2)
+
+
+def tenure_model_summary():
+    x = pd.get_dummies(
+        data[['Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
+        drop_first=True)
+    y = data['Tenure']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    with open('templates/model_summary.html', 'w') as f:
+        f.write(model.summary().as_html())

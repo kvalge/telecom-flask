@@ -119,6 +119,7 @@ def profitability_page():
 
 @app.route('/tests', methods=['GET'])
 def tests_page():
+    tenure_model_summary()
 
     return render_template('tests.html')
 
