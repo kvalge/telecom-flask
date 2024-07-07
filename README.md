@@ -13,6 +13,8 @@ Pandas
 Matplotlib  
 NumPy  
 squarify  
+statsmodels  
+seaborn  
 openpyxl  
 
 ### IDE
