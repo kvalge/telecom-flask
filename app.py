@@ -62,12 +62,18 @@ def sociodem_page():
     dependents_bar(dependents_data)
 
     by_age_group = churn_by_age_group_monthly_mean()
+    by_age_group_total = churn_by_age_group_total_mean()
     by_partner = churn_by_partner_monthly_mean()
+    by_partner_total = churn_by_partner_total_mean()
     by_dependents = churn_by_dependents_monthly_mean()
+    by_dependents_total = churn_by_dependents_total_mean()
 
     churn_by_age_group_monthly_mean_bar(by_age_group)
+    churn_by_age_group_total_mean_bar(by_age_group_total)
     churn_by_partner_monthly_mean_bar(by_partner)
+    churn_by_partner_total_mean_bar(by_partner_total)
     churn_by_dependents_monthly_mean_bar(by_dependents)
+    churn_by_dependents_total_mean_bar(by_dependents_total)
 
     tenure_by_sociodem = av_tenure_by_sociodem()
     av_tenure_by_sociodem_line(tenure_by_sociodem)
@@ -75,13 +81,20 @@ def sociodem_page():
     charges_by_sociodem = av_monthly_charges_by_sociodem()
     av_monthly_charges_by_sociodem_line(charges_by_sociodem)
 
+    total_charges_by_sociodem = av_total_charges_by_sociodem()
+    av_total_charges_by_sociodem_line(total_charges_by_sociodem)
+
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
                            partner_stat=partner_stat,
                            dependents_stat=dependents_stat,
                            by_age_group=by_age_group,
+                           by_age_group_total=by_age_group_total,
                            by_dependents=by_dependents,
-                           by_partner=by_partner)
+                           by_dependents_total=by_dependents_total,
+                           by_partner=by_partner,
+                           by_partner_total=by_partner_total,
+                           )
 
 
 @app.route('/services', methods=['GET'])

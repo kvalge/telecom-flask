@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <p>Average monthly charges by churn and age group</p>
             <div class="container">
@@ -32,6 +33,23 @@
                     <div>
                         <img src="{{ url_for('static', filename='graphs/churn_by_age_group_monthly_mean_bar.png') }}"
                              alt="Bar of Age Group" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p>Average total charges by churn and age group</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_age_group_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_age_group_total_mean_bar.png') }}"
+                             alt="Bar of Age Group Total" class="graph">
                     </div>
                 </div>
             </div>
@@ -54,6 +72,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <p>Average monthly charges by churn and partnership</p>
             <div class="container">
@@ -66,6 +85,24 @@
                     <div>
                         <img src="{{ url_for('static', filename='graphs/churn_by_partner_monthly_mean_bar.png') }}"
                              alt="Bar of Partnership" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div>
+            <p>Average total charges by churn and partnership</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_partner_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_partner_total_mean_bar.png') }}"
+                             alt="Bar of Partnership Total" class="graph">
                     </div>
                 </div>
             </div>
@@ -105,6 +142,23 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div>
+            <p>Average total charges by churn and dependents</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_dependents_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/churn_by_dependents_total_mean_bar.png') }}"
+                             alt="Bar of Dependents Total" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <br>
         <h2>Averages by Sociodemographics</h2>
@@ -119,6 +173,13 @@
             <div>
                 <img src="{{ url_for('static', filename='graphs/monthly_charges_by_sociodem_line.png') }}"
                      alt="Average Monthly Charges by Sociodem" class="graph">
+            </div>
+        </div>
+    <br>
+            <div class="graph-frame">
+            <div>
+                <img src="{{ url_for('static', filename='graphs/total_charges_by_sociodem_line.png') }}"
+                     alt="Average Total Charges by Sociodem" class="graph">
             </div>
         </div>
 

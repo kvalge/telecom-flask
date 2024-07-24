@@ -33,8 +33,8 @@ def total_charges():
 def summary_statistics(variable):
     variable_mean = round(data[variable].mean(), 1)
     variable_median = round(data[variable].median(), 1)
-    variable_min = round(data[variable].min(),1)
-    variable_max = round(data[variable].max(),1)
+    variable_min = round(data[variable].min(), 1)
+    variable_max = round(data[variable].max(), 1)
     variable_q1 = round(data[variable].quantile(0.25), 1)
     variable_q3 = round(data[variable].quantile(0.75), 1)
     variable_std = round(data[variable].std(), 1)
@@ -130,8 +130,15 @@ def age_group():
 
 
 def churn_by_age_group_monthly_mean():
-    mean = data.groupby(['Churn', 'Senior_Citizen'])['Monthly_Charges'].mean()
+    return churn_by_age_group_spend_mean('Monthly_Charges')
 
+
+def churn_by_age_group_total_mean():
+    return churn_by_age_group_spend_mean('Total_Charges')
+
+
+def churn_by_age_group_spend_mean(variable):
+    mean = data.groupby(['Churn', 'Senior_Citizen'])[variable].mean()
     by_mean = {
         'Active & Age < 65': round(list(mean)[0], 2),
         'Active & Age > 65': round(list(mean)[1], 2),
@@ -165,8 +172,15 @@ def partner():
 
 
 def churn_by_partner_monthly_mean():
-    mean = data.groupby(['Churn', 'Partner'])['Monthly_Charges'].mean()
+    return churn_by_partner_spends_mean('Monthly_Charges')
 
+
+def churn_by_partner_total_mean():
+    return churn_by_partner_spends_mean('Total_Charges')
+
+
+def churn_by_partner_spends_mean(variable):
+    mean = data.groupby(['Churn', 'Partner'])[variable].mean()
     by_mean = {
         'Active & Has no partner': round(list(mean)[0], 2),
         'Active & Has partner': round(list(mean)[1], 2),
@@ -200,15 +214,21 @@ def dependents():
 
 
 def churn_by_dependents_monthly_mean():
-    mean = data.groupby(['Churn', 'Dependents'])['Monthly_Charges'].mean()
+    return churn_by_dependents_spends_mean('Monthly_Charges')
 
+
+def churn_by_dependents_total_mean():
+    return churn_by_dependents_spends_mean('Total_Charges')
+
+
+def churn_by_dependents_spends_mean(variable):
+    mean = data.groupby(['Churn', 'Dependents'])[variable].mean()
     by_mean = {
         'Active & Has no dependents': round(list(mean)[0], 2),
         'Active & Has dependents': round(list(mean)[1], 2),
         'Terminated & Has no dependents': round(list(mean)[2], 2),
         'Terminated & Has dependents': round(list(mean)[3], 2)
     }
-
     return by_mean
 
 
@@ -221,10 +241,17 @@ def av_tenure_by_sociodem():
 
 
 def av_monthly_charges_by_sociodem():
-    av_age = data.groupby('Senior_Citizen')['Monthly_Charges'].mean()
-    av_dependents = data.groupby('Dependents')['Monthly_Charges'].mean()
-    av_partner = data.groupby('Partner')['Monthly_Charges'].mean()
+    return av_spends_by_sociodem('Monthly_Charges')
 
+
+def av_total_charges_by_sociodem():
+    return av_spends_by_sociodem('Total_Charges')
+
+
+def av_spends_by_sociodem(variable):
+    av_age = data.groupby('Senior_Citizen')[variable].mean()
+    av_dependents = data.groupby('Dependents')[variable].mean()
+    av_partner = data.groupby('Partner')[variable].mean()
     return av_age, av_dependents, av_partner
 
 

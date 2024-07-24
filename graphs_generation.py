@@ -3,7 +3,7 @@ import numpy as np
 import squarify
 import seaborn as sns
 
-from functions import tenure, monthly_charges
+from functions import tenure, monthly_charges, total_charges
 
 
 def tenure_histogram(tenure_data):
@@ -94,7 +94,11 @@ def age_group_bar(age_group_data):
 
 
 def churn_by_age_group_monthly_mean_bar(mean_data):
-    churn_by_sociodem_monthly_mean_bar(mean_data, 'age group')
+    churn_by_sociodem_spends_mean_bar(mean_data, 'age group', 'monthly')
+
+
+def churn_by_age_group_total_mean_bar(mean_data):
+    churn_by_sociodem_spends_mean_bar(mean_data, 'age group', 'total')
 
 
 def partner_bar(partner_data):
@@ -102,7 +106,11 @@ def partner_bar(partner_data):
 
 
 def churn_by_partner_monthly_mean_bar(mean_data):
-    churn_by_sociodem_monthly_mean_bar(mean_data, 'partner')
+    churn_by_sociodem_spends_mean_bar(mean_data, 'partner', 'monthly')
+
+
+def churn_by_partner_total_mean_bar(mean_data):
+    churn_by_sociodem_spends_mean_bar(mean_data, 'partner', 'total')
 
 
 def dependents_bar(dependents_data):
@@ -110,15 +118,23 @@ def dependents_bar(dependents_data):
 
 
 def churn_by_dependents_monthly_mean_bar(mean_data):
-    churn_by_sociodem_monthly_mean_bar(mean_data, 'dependents')
+    churn_by_sociodem_spends_mean_bar(mean_data, 'dependents', 'monthly')
+
+
+def churn_by_dependents_total_mean_bar(mean_data):
+    churn_by_sociodem_spends_mean_bar(mean_data, 'dependents', 'total')
 
 
 def av_tenure_by_sociodem_line(sociodem_data):
-    av_by_sociodem_line(sociodem_data, 'tenure', tenure())
+    av_by_sociodem_line(sociodem_data, 'tenure', tenure(),5)
 
 
 def av_monthly_charges_by_sociodem_line(sociodem_data):
-    av_by_sociodem_line(sociodem_data, 'monthly charges', monthly_charges())
+    av_by_sociodem_line(sociodem_data, 'monthly charges', monthly_charges(),10)
+
+
+def av_total_charges_by_sociodem_line(sociodem_data):
+    av_by_sociodem_line(sociodem_data, 'total charges', total_charges(),500)
 
 
 def phone_bar(phone_data):
@@ -252,7 +268,7 @@ def three_bars(data, name, labels):
     plt.close()
 
 
-def churn_by_sociodem_monthly_mean_bar(mean_data, name):
+def churn_by_sociodem_spends_mean_bar(mean_data, name, spend_period):
     data = dict(sorted(mean_data.items(), key=lambda item: item[1]))
 
     labels = list(data.keys())
@@ -270,14 +286,14 @@ def churn_by_sociodem_monthly_mean_bar(mean_data, name):
 
     plt.xticks(fontsize=7)
     plt.yticks(fontsize=7)
-    plt.title(f'Share of average monthly charges\nby churn and {name}')
+    plt.title(f'Share of average {spend_period} charges\nby churn and {name}')
     plt.tight_layout()
 
-    plt.savefig(f'static/graphs/churn_by_{name.replace(" ", "_")}_monthly_mean_bar.png')
+    plt.savefig(f'static/graphs/churn_by_{name.replace(" ", "_")}_{spend_period}_mean_bar.png')
     plt.close()
 
 
-def av_by_sociodem_line(sociodem_data, name, data_function):
+def av_by_sociodem_line(sociodem_data, name, data_function, y_tick_width):
     plt.figure(figsize=(6, 4))
     color = ['#0B9AB6', '#0283C5', '#034362']
 
@@ -289,7 +305,7 @@ def av_by_sociodem_line(sociodem_data, name, data_function):
     plt.xlabel('Sociodemographics')
     plt.ylabel(f'Average {name.title()}')
     plt.xticks(ticks=[0, 1], labels=['No', 'Yes'])
-    y_ticks = np.arange(0, data_function.iloc[-1] + 1, 10)
+    y_ticks = np.arange(0, data_function.iloc[-1] + 1, y_tick_width)
     plt.yticks(ticks=y_ticks, labels=[str(int(round(tick))) for tick in y_ticks])
     plt.yticks(fontsize=7)
     plt.legend()
