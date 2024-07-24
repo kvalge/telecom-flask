@@ -126,15 +126,15 @@ def churn_by_dependents_total_mean_bar(mean_data):
 
 
 def av_tenure_by_sociodem_line(sociodem_data):
-    av_by_sociodem_line(sociodem_data, 'tenure', tenure(),5)
+    av_by_sociodem_line(sociodem_data, 'tenure', tenure(), 5)
 
 
 def av_monthly_charges_by_sociodem_line(sociodem_data):
-    av_by_sociodem_line(sociodem_data, 'monthly charges', monthly_charges(),10)
+    av_by_sociodem_line(sociodem_data, 'monthly charges', monthly_charges(), 10)
 
 
 def av_total_charges_by_sociodem_line(sociodem_data):
-    av_by_sociodem_line(sociodem_data, 'total charges', total_charges(),500)
+    av_by_sociodem_line(sociodem_data, 'total charges', total_charges(), 500)
 
 
 def phone_bar(phone_data):
@@ -152,24 +152,51 @@ def streaming_tv_bar(streaming_tv_data):
 
 
 def phone_churn_monthly_heatmap(by_mean):
-    service_churn_monthly_charges_heatmap(by_mean,
-                                          'phone service',
-                                          [00.5, 1.5],
-                                          ['has no phone service', 'has phone service'])
+    service_churn_spends_heatmap(by_mean,
+                                 'phone service',
+                                 [00.5, 1.5],
+                                 ['has no phone service', 'has phone service'],
+                                 'Monthly')
+
+
+def phone_churn_total_heatmap(by_mean):
+    service_churn_spends_heatmap(by_mean,
+                                 'phone service total',
+                                 [00.5, 1.5],
+                                 ['has no phone service', 'has phone service'],
+                                 'Total')
 
 
 def internet_churn_monthly_heatmap(by_mean):
-    service_churn_monthly_charges_heatmap(by_mean,
-                                          'internet service',
-                                          [0.5, 1.5, 2.5],
-                                          ['dsl', 'fiber optic', 'has no internet service'])
+    service_churn_spends_heatmap(by_mean,
+                                 'internet service',
+                                 [0.5, 1.5, 2.5],
+                                 ['dsl', 'fiber optic', 'has no internet service'],
+                                 'Monthly')
+
+
+def internet_churn_total_heatmap(by_mean):
+    service_churn_spends_heatmap(by_mean,
+                                 'internet service total',
+                                 [0.5, 1.5, 2.5],
+                                 ['dsl', 'fiber optic', 'has no internet service'],
+                                 'Total')
 
 
 def streaming_tv_churn_monthly_heatmap(by_mean):
-    service_churn_monthly_charges_heatmap(by_mean,
-                                          'streaming',
-                                          [0.5, 1.5, 2.5],
-                                          ['has no tv', 'has no internet service', 'has tv'])
+    service_churn_spends_heatmap(by_mean,
+                                 'streaming',
+                                 [0.5, 1.5, 2.5],
+                                 ['has no tv', 'has no internet service', 'has tv'],
+                                 'Monthly')
+
+
+def streaming_tv_churn_total_heatmap(by_mean):
+    service_churn_spends_heatmap(by_mean,
+                                 'streaming total',
+                                 [0.5, 1.5, 2.5],
+                                 ['has no tv', 'has no internet service', 'has tv'],
+                                 'Total')
 
 
 def total_charges_churn_by_sociodem_treemap(sociodem_data):
@@ -181,13 +208,22 @@ def total_charges_churn_by_sociodem_treemap(sociodem_data):
                                 14)
 
 
-def total_charges_churn_by_services_treemap(sociodem_data):
-    total_charges_churn_treemap(sociodem_data,
+def total_charges_churn_by_services_treemap(services_data):
+    total_charges_churn_treemap(services_data,
                                 'services',
                                 ['Phone', 'Internet', 'TV'],
                                 17,
                                 14,
                                 20)
+
+
+def total_charges_churn_by_sociodem_and_services_treemap(sociodem_data):
+    total_charges_churn_treemap(sociodem_data,
+                                'sociodemographics&services',
+                                ['Age over 65', 'Partner', 'Dependents', 'Phone', 'Internet', 'TV'],
+                                12,
+                                9,
+                                14)
 
 
 def summary_statistics_histogram(tenure_data, name):
@@ -314,19 +350,25 @@ def av_by_sociodem_line(sociodem_data, name, data_function, y_tick_width):
     plt.close()
 
 
-def total_charges_churn_treemap(sociodem_data, name, labels, fig1, fig2, title_size):
-    total_sum = sociodem_data.sum()
-    total_sum_percentage = sociodem_data / total_sum * 100
-    labels = [f'Churn: {key[0]}\n{labels[0]}: {key[1]}\n{labels[1]}]: {key[2]}\n{labels[2]}: {key[3]}\n{value:.1f}%'
-              for key, value in zip(total_sum_percentage.index, total_sum_percentage.values)]
+def total_charges_churn_treemap(data, name, labels, fig1, fig2, title_size):
+    total_sum = data.sum()
+    total_sum_percentage = data / total_sum * 100
+
+    label_texts = []
+    for key, value in zip(total_sum_percentage.index, total_sum_percentage.values):
+        label_text = f'Churn: {key[0]}'
+        for i, label in enumerate(labels):
+            label_text += f'\n{label}: {key[i + 1]}'
+        label_text += f'\n{value:.1f}%'
+        label_texts.append(label_text)
+
     sizes = total_sum_percentage.values
 
     fig, ax = plt.subplots(1, 1, figsize=(fig1, fig2))
     color = ['#034362', '#0e5d83', '#2183b2', '#3d9fce', '#56add7', '#6abae1', '#81c4e5',
              '#97cde8', '#b6dcef', '#8fabb9', '#6c91a4', '#48758c', '#2c556b', '#0B9AB6']
-    # palette = sns.cubehelix_palette(start=0.1, rot=-0.1, light=0.9, as_cmap=False)
-    # color = palette.as_hex()
-    squarify.plot(sizes=sizes, label=labels, ax=ax, alpha=0.8, color=color)
+
+    squarify.plot(sizes=sizes, label=label_texts, ax=ax, alpha=0.8, color=color)
     ax.axis('off')
     plt.title(f'Total Charges Percentage by Churn and {name.title()}', fontsize=title_size)
     plt.tight_layout()
@@ -335,13 +377,13 @@ def total_charges_churn_treemap(sociodem_data, name, labels, fig1, fig2, title_s
     plt.close()
 
 
-def service_churn_monthly_charges_heatmap(by_mean, name, ticks, labels):
-    colors = ["#034362", "#0e5d83", "#0283C5", "#56add7", "#81c4e5", "#0B9AB6"]
+def service_churn_spends_heatmap(by_mean, name, ticks, labels, period):
+    colors = ["#034362", "#0e5d83", "#0283C5", "#56add7", "#81c4e5", "#f1f5f6"]
     cmap = sns.color_palette(colors, as_cmap=True)
 
     plt.figure(figsize=(5, 4))
     ax = sns.heatmap(by_mean, annot=True, cmap=cmap, linewidths=.5, fmt=".2f", cbar=False)
-    plt.title(f'Av. Monthly Charges by Churn and {name.title()}')
+    plt.title(f'Av. {period} Charges by Churn and {name.title()}')
     ax.set_xlabel(None)
     plt.ylabel('Churn')
     ax.set_xticks(ticks)

@@ -41,6 +41,25 @@
         </div>
         <br>
 
+            <div>
+            <p>Average total charges by churn and phone service</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_phone_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/phone_service_total_heatmap.png') }}"
+                             alt="Heatmap of Phone Total" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
         <h2>Internet Service</h2>
         <p>Does the customer have internet service</p>
 
@@ -70,6 +89,24 @@
                 <div class="graph-frame">
                     <div>
                         <img src="{{ url_for('static', filename='graphs/internet_service_heatmap.png') }}"
+                             alt="Heatmap of Internet" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+            <div>
+            <p>Average total charges by churn and internet service</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_internet_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/internet_service_total_heatmap.png') }}"
                              alt="Heatmap of Internet" class="graph">
                     </div>
                 </div>
@@ -108,6 +145,24 @@
                     <div>
                         <img src="{{ url_for('static', filename='graphs/streaming_heatmap.png') }}"
                              alt="Heatmap of Streaming TV" class="graph">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div>
+            <p>Average total charges by churn and streaming TV service</p>
+            <div class="container">
+                <div>
+                    {% for key, value in by_streaming_tv_total.items() %}
+                        <p>{{ key }} : {{ value }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="graph-frame">
+                    <div>
+                        <img src="{{ url_for('static', filename='graphs/streaming_total_heatmap.png') }}"
+                             alt="Heatmap of Streaming TV Total" class="graph">
                     </div>
                 </div>
             </div>

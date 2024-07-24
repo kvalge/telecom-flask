@@ -233,25 +233,22 @@ def churn_by_dependents_spends_mean(variable):
 
 
 def av_tenure_by_sociodem():
-    av_age = data.groupby('Senior_Citizen')['Tenure'].mean()
-    av_dependents = data.groupby('Dependents')['Tenure'].mean()
-    av_partner = data.groupby('Partner')['Tenure'].mean()
-
-    return av_age, av_dependents, av_partner
+    return av_by_sociodem('Tenure')
 
 
 def av_monthly_charges_by_sociodem():
-    return av_spends_by_sociodem('Monthly_Charges')
+    return av_by_sociodem('Monthly_Charges')
 
 
 def av_total_charges_by_sociodem():
-    return av_spends_by_sociodem('Total_Charges')
+    return av_by_sociodem('Total_Charges')
 
 
-def av_spends_by_sociodem(variable):
+def av_by_sociodem(variable):
     av_age = data.groupby('Senior_Citizen')[variable].mean()
     av_dependents = data.groupby('Dependents')[variable].mean()
     av_partner = data.groupby('Partner')[variable].mean()
+
     return av_age, av_dependents, av_partner
 
 
@@ -263,6 +260,15 @@ def total_charges_churn_by_sociodem():
 def total_charges_churn_by_services():
     total_charges = data.groupby(['Churn', 'Phone_Service', 'Internet_Service', 'Streaming_TV'])['Total_Charges'].sum()
     return total_charges
+
+
+def total_charges_churn_by_sociodem_and_services():
+    total_charges = data.groupby(
+        ['Churn', 'Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV'])[
+        'Total_Charges'].sum()
+    total_charges_more_than_500000 = total_charges[total_charges > 500000]
+
+    return total_charges_more_than_500000
 
 
 def phone_statistics():
@@ -288,22 +294,30 @@ def phone():
 
 
 def churn_by_phone_monthly_mean():
-    mean = data.groupby(['Churn', 'Phone_Service'])['Monthly_Charges'].mean()
+    return churn_by_phone_spends_mean('Monthly_Charges')
 
+
+def churn_by_phone_total_mean():
+    return churn_by_phone_spends_mean('Total_Charges')
+
+
+def churn_by_phone_spends_mean(variable):
+    mean = data.groupby(['Churn', 'Phone_Service'])[variable].mean()
     by_mean = {
         'Active & Has phone service': round(list(mean)[0], 2),
         'Active & Has no phone service': round(list(mean)[1], 2),
         'Terminated & Has phone service': round(list(mean)[2], 2),
         'Terminated & Has no phone service': round(list(mean)[3], 2)
     }
-
     return by_mean
 
 
 def churn_by_phone_monthly_mean_data():
-    mean = data.groupby(['Churn', 'Phone_Service'])['Monthly_Charges'].mean().unstack()
+    return churn_by_service_spends_mean('Phone_Service', 'Monthly_Charges')
 
-    return mean.round(2)
+
+def churn_by_phone_total_mean_data():
+    return churn_by_service_spends_mean('Phone_Service', 'Total_Charges')
 
 
 def internet_statistics():
@@ -333,8 +347,15 @@ def internet():
 
 
 def churn_by_internet_monthly_mean():
-    mean = data.groupby(['Churn', 'Internet_Service'])['Monthly_Charges'].mean()
+    return churn_by_internet_spends_mean('Monthly_Charges')
 
+
+def churn_by_internet_total_mean():
+    return churn_by_internet_spends_mean('Total_Charges')
+
+
+def churn_by_internet_spends_mean(variable):
+    mean = data.groupby(['Churn', 'Internet_Service'])[variable].mean()
     by_mean = {
         'Active & Has dsl service': round(list(mean)[0], 2),
         'Active & Has fiber optic service': round(list(mean)[1], 2),
@@ -343,14 +364,15 @@ def churn_by_internet_monthly_mean():
         'Terminated & Has fiber optic service': round(list(mean)[4], 2),
         'Terminated & No internet service': round(list(mean)[5], 2)
     }
-
     return by_mean
 
 
 def churn_by_internet_monthly_mean_data():
-    mean = data.groupby(['Churn', 'Internet_Service'])['Monthly_Charges'].mean().unstack()
+    return churn_by_service_spends_mean('Internet_Service', 'Monthly_Charges')
 
-    return mean.round(2)
+
+def churn_by_internet_total_mean_data():
+    return churn_by_service_spends_mean('Internet_Service', 'Total_Charges')
 
 
 def streaming_tv_statistics():
@@ -380,8 +402,15 @@ def streaming_tv():
 
 
 def churn_by_streaming_tv_monthly_mean():
-    mean = data.groupby(['Churn', 'Streaming_TV'])['Monthly_Charges'].mean()
+    return churn_by_streaming_tv_spends_mean('Monthly_Charges')
 
+
+def churn_by_streaming_tv_total_mean():
+    return churn_by_streaming_tv_spends_mean('Total_Charges')
+
+
+def churn_by_streaming_tv_spends_mean(variable):
+    mean = data.groupby(['Churn', 'Streaming_TV'])[variable].mean()
     by_mean = {
         'Active & Has no TV service': round(list(mean)[0], 2),
         'Active & Has no internet service': round(list(mean)[1], 2),
@@ -390,13 +419,19 @@ def churn_by_streaming_tv_monthly_mean():
         'Terminated & Has no internet service': round(list(mean)[4], 2),
         'Terminated & Has TV service': round(list(mean)[5], 2)
     }
-
     return by_mean
 
 
 def churn_by_streaming_tv_monthly_mean_data():
-    mean = data.groupby(['Churn', 'Streaming_TV'])['Monthly_Charges'].mean().unstack()
+    return churn_by_service_spends_mean('Streaming_TV', 'Monthly_Charges')
 
+
+def churn_by_streaming_tv_total_mean_data():
+    return churn_by_service_spends_mean('Streaming_TV', 'Total_Charges')
+
+
+def churn_by_service_spends_mean(service, period):
+    mean = data.groupby(['Churn', service])[period].mean().unstack()
     return mean.round(2)
 
 

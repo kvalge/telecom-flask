@@ -112,26 +112,36 @@ def services_page():
     streaming_tv_bar(streaming_tv_data)
 
     by_phone = churn_by_phone_monthly_mean()
+    by_phone_total = churn_by_phone_total_mean()
     by_internet = churn_by_internet_monthly_mean()
+    by_internet_total = churn_by_internet_total_mean()
     by_streaming_tv = churn_by_streaming_tv_monthly_mean()
+    by_streaming_tv_total = churn_by_streaming_tv_total_mean()
 
     phone_churn_monthly_heatmap(churn_by_phone_monthly_mean_data())
+    phone_churn_total_heatmap(churn_by_phone_total_mean_data())
     internet_churn_monthly_heatmap(churn_by_internet_monthly_mean_data())
+    internet_churn_total_heatmap(churn_by_internet_total_mean_data())
     streaming_tv_churn_monthly_heatmap(churn_by_streaming_tv_monthly_mean_data())
+    streaming_tv_churn_total_heatmap(churn_by_streaming_tv_total_mean_data())
 
     return render_template('services.html',
                            phone_stat=phone_stat,
                            internet_stat=internet_stat,
                            streaming_tv_stat=streaming_tv_stat,
                            by_phone=by_phone,
+                           by_phone_total=by_phone_total,
                            by_internet=by_internet,
-                           by_streaming_tv=by_streaming_tv)
+                           by_internet_total=by_internet_total,
+                           by_streaming_tv=by_streaming_tv,
+                           by_streaming_tv_total=by_streaming_tv_total)
 
 
 @app.route('/profitability', methods=['GET'])
 def profitability_page():
     total_charges_churn_by_sociodem_treemap(total_charges_churn_by_sociodem())
     total_charges_churn_by_services_treemap(total_charges_churn_by_services())
+    total_charges_churn_by_sociodem_and_services_treemap(total_charges_churn_by_sociodem_and_services())
 
     return render_template('profitability.html')
 
