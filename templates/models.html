@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="frame">
+
+        <h1>Tenure Model Summary</h1>
+        {% include 'tenure_model_summary.html' %}
+        <br>
+        <br>
+        <hr>
+        <br>
+        <h1>Monthly Charges Model Summary</h1>
+        {% include 'monthly_charges_model_summary.html' %}
+        <br>
+        <br>
+        <hr>
+        <br>
+        <h1>Total Charges Model Summary</h1>
+        {% include 'total_charges_model_summary.html' %}
+
+    </div>
+
+{% endblock %}

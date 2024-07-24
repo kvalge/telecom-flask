@@ -22,6 +22,14 @@ def monthly_charges_boxplot(charges_data):
     summary_statistics_boxplot(charges_data, 'monthly charges')
 
 
+def total_charges_histogram(charges_data):
+    summary_statistics_histogram(charges_data, 'total charges')
+
+
+def total_charges_boxplot(charges_data):
+    summary_statistics_boxplot(charges_data, 'total charges')
+
+
 def churn_pie(churn_data):
     labels = churn_data.index
     sizes = churn_data.values

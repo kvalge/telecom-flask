@@ -17,12 +17,18 @@ def summary():
     monthly_charges_histogram(charges_data)
     monthly_charges_boxplot(charges_data)
 
+    total_stat = total_charges_summary_statistics()
+    total_data = total_charges()
+    total_charges_histogram(total_data)
+    total_charges_boxplot(total_data)
+
     churn_stat = churn_statistics()
     churn_data = churn()
     churn_pie(churn_data)
 
     return render_template('summary.html',
                            monthly_stat=monthly_stat,
+                           total_stat=total_stat,
                            tenure_stat=tenure_stat,
                            churn_stat=churn_stat)
 
@@ -119,9 +125,17 @@ def profitability_page():
 
 @app.route('/tests', methods=['GET'])
 def tests_page():
-    tenure_model_summary()
 
     return render_template('tests.html')
+
+
+@app.route('/models', methods=['GET'])
+def models_page():
+    tenure_model_summary()
+    monthly_charges_model_summary()
+    total_charges_model_summary()
+
+    return render_template('models.html')
 
 
 if __name__ == '__main__':

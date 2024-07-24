@@ -47,6 +47,27 @@
             </div>
         </div>
 
+        <h2>Total Charges</h2>
+        <p>Total charges per contract</p>
+
+        <div class="container">
+            <div>
+                {% for key, value in total_stat.items() %}
+                    <p>{{ key }} : {{ value }}</p>
+                {% endfor %}
+            </div>
+            <div class="graph-frame">
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/total_charges_histogram.png') }}"
+                         alt="Histogram of Total Charges" class="graph">
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='graphs/total_charges_boxplot.png') }}"
+                         alt="Boxplot of Total Charges">
+                </div>
+            </div>
+        </div>
+
         <h2>Churn</h2>
         <p>Whether the customer has terminated the contract within the last month</p>
 

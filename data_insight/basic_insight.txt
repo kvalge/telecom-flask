@@ -1,4 +1,4 @@
-Number of rows: 7043
+Number of rows: 7032
 Number of columns: 21
 
 Column types: 
@@ -21,7 +21,7 @@ Contract              object
 Paperless_Billing     object
 Payment_Method        object
 Monthly_Charges      float64
-Total_Charges         object
+Total_Charges        float64
 Churn                 object
 dtype: object
 
@@ -50,29 +50,18 @@ Churn                0
 dtype: int64
 
 Rows of missing values of "Total Charges" column: 
-      LoyaltyID Customer_ID Senior_Citizen  ... Monthly_Charges Total_Charges  Churn
-488      344543  4472-LVYGI             No  ...           52.55             _     No
-753      150036  3115-CZMZD             No  ...           20.25             _     No
-936      497688  5709-LVOEQ             No  ...           80.85             _     No
-1082     158969  4367-NUYAO             No  ...           25.75             _     No
-1340     470044  1371-DWPAZ             No  ...           56.05             _     No
-3331     937662  7644-OMVMY             No  ...           19.85             _     No
-3826     821083  3213-VVOLG             No  ...           25.35             _     No
-4380     947028  2520-SGTTA             No  ...           20.00             _     No
-5218     135257  2923-ARZLG             No  ...           19.70             _     No
-6670     317862  4075-WKNIU             No  ...           73.35             _     No
-6754     392646  2775-SEFEE             No  ...           61.90             _     No
-
-[11 rows x 21 columns]
+Empty DataFrame
+Columns: [LoyaltyID, Customer_ID, Senior_Citizen, Partner, Dependents, Tenure, Phone_Service, Multiple_Lines, Internet_Service, Online_Security, Online_Backup, Device_Protection, Tech_Support, Streaming_TV, Streaming_Movies, Contract, Paperless_Billing, Payment_Method, Monthly_Charges, Total_Charges, Churn]
+Index: []
 
 Summary statistics:             Tenure  Monthly_Charges  Total_Charges
-count  7043.000000      7043.000000    7032.000000
-mean     32.371149        64.761692    2283.300441
-std      24.559481        30.090047    2266.771362
-min       0.000000        18.250000      18.800000
-25%       9.000000        35.500000     401.450000
+count  7032.000000      7032.000000    7032.000000
+mean     32.421786        64.798208    2283.300441
+std      24.545260        30.085974    2266.771362
+min       1.000000        18.250000      18.800000
+25%       9.000000        35.587500     401.450000
 50%      29.000000        70.350000    1397.475000
-75%      55.000000        89.850000    3794.737500
+75%      55.000000        89.862500    3794.737500
 max      72.000000       118.750000    8684.800000
 
 Data of the first row:
@@ -112,138 +101,138 @@ Name: 0, dtype: object
 Selecting a cell of first id: 
  7590-VHVEG
 
-Mean of monthly charges: 64.76169246059918
+Mean of monthly charges: 64.79820819112628
 Max of monthly charges: 118.75
 Min of monthly charges: 18.25: 
 
-Mean of total charges: 2283.3004408418656
+Mean of total charges: 2283.300440841866
 Max of total charges: 8684.8
 Min of total charges: 18.8: 
 
 Count of churn: 
 Churn
-No     5174
+No     5163
 Yes    1869
 Name: Churn, dtype: int64
 
 Number of customers under and over 65: 
 Senior_Citizen
-No     5901
+No     5890
 Yes    1142
 Name: Senior_Citizen, dtype: int64
 
 Number of customers without and with partner: 
 Partner
-No     3641
-Yes    3402
+No     3639
+Yes    3393
 Name: Partner, dtype: int64
 
 Number of customers without and with dependents: 
 Dependents
 No     4933
-Yes    2110
+Yes    2099
 Name: Dependents, dtype: int64
 
-Mean of tenure: 32.37114865824223
+Mean of tenure: 32.421786120591584
 Max of tenure: 72
-Min of tenure: 0: 
+Min of tenure: 1: 
 
 Count of phone services: 
 Phone_Service
-No      682
-Yes    6361
+No      680
+Yes    6352
 Name: Phone_Service, dtype: int64
 
 Count of multiple telephone lines service: 
 Multiple_Lines
-No                  3390
-No_phone_service     682
-Yes                 2971
+No                  3385
+No_phone_service     680
+Yes                 2967
 Name: Multiple_Lines, dtype: int64
 
 Count of internet service: 
 Internet_Service
-DSL            2421
+DSL            2416
 Fiber_optic    3096
-No             1526
+No             1520
 Name: Internet_Service, dtype: int64
 
 Count of online security service: 
 Online_Security
-No                     3498
-No_internet_service    1526
-Yes                    2019
+No                     3497
+No_internet_service    1520
+Yes                    2015
 Name: Online_Security, dtype: int64
 
 Count of online backup service: 
 Online_Backup
-No                     3088
-No_internet_service    1526
-Yes                    2429
+No                     3087
+No_internet_service    1520
+Yes                    2425
 Name: Online_Backup, dtype: int64
 
 Count of device protection service: 
 Device_Protection
-No                     3095
-No_internet_service    1526
-Yes                    2422
+No                     3094
+No_internet_service    1520
+Yes                    2418
 Name: Device_Protection, dtype: int64
 
 Count of tech support: 
 Tech_Support
-No                     3473
-No_internet_service    1526
-Yes                    2044
+No                     3472
+No_internet_service    1520
+Yes                    2040
 Name: Tech_Support, dtype: int64
 
 Count of streaming TV: 
 Streaming_TV
-No                     2810
-No_internet_service    1526
-Yes                    2707
+No                     2809
+No_internet_service    1520
+Yes                    2703
 Name: Streaming_TV, dtype: int64
 
 Count of streaming movies service: 
 Streaming_Movies
-No                     2785
-No_internet_service    1526
-Yes                    2732
+No                     2781
+No_internet_service    1520
+Yes                    2731
 Name: Streaming_Movies, dtype: int64
 
 Count of contracts by period: 
 Contract
 Month-to-month    3875
-One_year          1473
-Two_year          1695
+One_year          1472
+Two_year          1685
 Name: Contract, dtype: int64
 
 Count of contracts by period: 
 Contract
 Month-to-month    3875
-One_year          1473
-Two_year          1695
+One_year          1472
+Two_year          1685
 Name: Contract, dtype: int64
 
 Count of billing by type: 
 Paperless_Billing
-No     2872
-Yes    4171
+No     2864
+Yes    4168
 Name: Paperless_Billing, dtype: int64
 
 Count of payment method by type: 
 Payment_Method
-Bank_transfer_(automatic)    1544
-Credit_card_(automatic)      1522
+Bank_transfer_(automatic)    1542
+Credit_card_(automatic)      1521
 Electronic_check             2365
-Mailed_check                 1612
+Mailed_check                 1604
 Name: Payment_Method, dtype: int64
 
 Count of payment method by type: 
 Payment_Method
-Bank_transfer_(automatic)    1544
-Credit_card_(automatic)      1522
+Bank_transfer_(automatic)    1542
+Credit_card_(automatic)      1521
 Electronic_check             2365
-Mailed_check                 1612
+Mailed_check                 1604
 Name: Payment_Method, dtype: int64
 
 Churn share by age group:
@@ -254,75 +243,110 @@ Churn share by age group:
 Tenure mean and std by churn:
   Churn Tenure       
           mean    std
-0    No  37.57  24.11
+0    No  37.65  24.08
 1   Yes  17.98  19.53
 
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                 Tenure   R-squared:                       0.205
-Model:                            OLS   Adj. R-squared:                  0.204
-Method:                 Least Squares   F-statistic:                     259.3
-Date:                Tue, 02 Jul 2024   Prob (F-statistic):               0.00
-Time:                        00:30:14   Log-Likelihood:                -31730.
-No. Observations:                7043   AIC:                         6.348e+04
-Df Residuals:                    7035   BIC:                         6.353e+04
+Dep. Variable:                 Tenure   R-squared:                       0.207
+Model:                            OLS   Adj. R-squared:                  0.207
+Method:                 Least Squares   F-statistic:                     262.4
+Date:                Tue, 23 Jul 2024   Prob (F-statistic):               0.00
+Time:                        19:48:49   Log-Likelihood:                -31667.
+No. Observations:                7032   AIC:                         6.335e+04
+Df Residuals:                    7024   BIC:                         6.340e+04
 Df Model:                           7                                         
 Covariance Type:            nonrobust                                         
 ====================================================================================================
                                        coef    std err          t      P>|t|      [0.025      0.975]
 ----------------------------------------------------------------------------------------------------
-const                               18.2423      0.911     20.026      0.000      16.457      20.028
-Senior_Citizen_Yes                   0.1785      0.751      0.238      0.812      -1.294       1.651
-Partner_Yes                         17.1647      0.597     28.773      0.000      15.995      18.334
-Dependents_Yes                      -0.4833      0.667     -0.724      0.469      -1.792       0.825
-Phone_Service_Yes                    1.4114      1.062      1.329      0.184      -0.671       3.494
-Internet_Service_Fiber_optic        -2.8051      0.788     -3.557      0.000      -4.351      -1.259
-Internet_Service_No               1.407e+13   8.12e+13      0.173      0.862   -1.45e+14    1.73e+14
-Streaming_TV_No_internet_service -1.407e+13   8.12e+13     -0.173      0.862   -1.73e+14    1.45e+14
-Streaming_TV_Yes                    13.8474      0.605     22.902      0.000      12.662      15.033
+const                               18.2956      0.910     20.108      0.000      16.512      20.079
+Senior_Citizen_Yes                   0.1813      0.750      0.242      0.809      -1.288       1.651
+Partner_Yes                         17.1909      0.596     28.858      0.000      16.023      18.359
+Dependents_Yes                      -0.3150      0.666     -0.473      0.636      -1.621       0.991
+Phone_Service_Yes                    1.2641      0.991      1.276      0.202      -0.678       3.206
+Internet_Service_Fiber_optic        -2.7941      0.680     -4.109      0.000      -4.127      -1.461
+Internet_Service_No                  1.4719      0.402      3.658      0.000       0.683       2.261
+Streaming_TV_No_internet_service     1.4719      0.402      3.658      0.000       0.683       2.261
+Streaming_TV_Yes                    13.9132      0.604     23.046      0.000      12.730      15.097
 ==============================================================================
-Omnibus:                     1017.296   Durbin-Watson:                   2.048
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              279.625
-Skew:                           0.185   Prob(JB):                     1.91e-61
-Kurtosis:                       2.097   Cond. No.                     7.27e+14
+Omnibus:                     1021.325   Durbin-Watson:                   2.049
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              280.917
+Skew:                           0.188   Prob(JB):                     9.99e-62
+Kurtosis:                       2.096   Cond. No.                     1.01e+15
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The smallest eigenvalue is 3.64e-26. This might indicate that there are
+[2] The smallest eigenvalue is 1.89e-26. This might indicate that there are
 strong multicollinearity problems or that the design matrix is singular.
 
                             OLS Regression Results                            
 ==============================================================================
 Dep. Variable:        Monthly_Charges   R-squared:                       0.934
 Model:                            OLS   Adj. R-squared:                  0.934
-Method:                 Least Squares   F-statistic:                 1.432e+04
-Date:                Tue, 02 Jul 2024   Prob (F-statistic):               0.00
-Time:                        00:30:14   Log-Likelihood:                -24375.
-No. Observations:                7043   AIC:                         4.877e+04
-Df Residuals:                    7035   BIC:                         4.882e+04
+Method:                 Least Squares   F-statistic:                 1.430e+04
+Date:                Tue, 23 Jul 2024   Prob (F-statistic):               0.00
+Time:                        19:48:49   Log-Likelihood:                -24334.
+No. Observations:                7032   AIC:                         4.868e+04
+Df Residuals:                    7024   BIC:                         4.874e+04
 Df Model:                           7                                         
 Covariance Type:            nonrobust                                         
 ====================================================================================================
                                        coef    std err          t      P>|t|      [0.025      0.975]
 ----------------------------------------------------------------------------------------------------
-const                               33.0155      0.321    102.987      0.000      32.387      33.644
-Senior_Citizen_Yes                  -0.4518      0.264     -1.709      0.087      -0.970       0.066
-Partner_Yes                          3.4359      0.210     16.365      0.000       3.024       3.847
-Dependents_Yes                      -0.0159      0.235     -0.068      0.946      -0.476       0.445
-Phone_Service_Yes                   22.9400      0.374     61.367      0.000      22.207      23.673
-Internet_Service_Fiber_optic        23.8295      0.277     85.872      0.000      23.286      24.373
-Internet_Service_No               3.196e+13   2.86e+13      1.119      0.263    -2.4e+13     8.8e+13
-Streaming_TV_No_internet_service -3.196e+13   2.86e+13     -1.119      0.263    -8.8e+13     2.4e+13
-Streaming_TV_Yes                    17.9947      0.213     84.563      0.000      17.578      18.412
+const                               33.0181      0.321    102.954      0.000      32.389      33.647
+Senior_Citizen_Yes                  -0.4462      0.264     -1.689      0.091      -0.964       0.072
+Partner_Yes                          3.4427      0.210     16.396      0.000       3.031       3.854
+Dependents_Yes                      -0.0339      0.235     -0.144      0.885      -0.494       0.426
+Phone_Service_Yes                   22.7861      0.349     65.251      0.000      22.102      23.471
+Internet_Service_Fiber_optic        23.9888      0.240    100.095      0.000      23.519      24.459
+Internet_Service_No                -18.1793      0.142   -128.179      0.000     -18.457     -17.901
+Streaming_TV_No_internet_service   -18.1793      0.142   -128.179      0.000     -18.457     -17.901
+Streaming_TV_Yes                    17.9934      0.213     84.557      0.000      17.576      18.411
 ==============================================================================
-Omnibus:                        8.841   Durbin-Watson:                   2.040
-Prob(Omnibus):                  0.012   Jarque-Bera (JB):                9.154
-Skew:                           0.063   Prob(JB):                       0.0103
-Kurtosis:                       3.124   Cond. No.                     7.27e+14
+Omnibus:                       23.308   Durbin-Watson:                   2.042
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               23.911
+Skew:                           0.125   Prob(JB):                     6.42e-06
+Kurtosis:                       3.140   Cond. No.                     1.01e+15
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The smallest eigenvalue is 3.64e-26. This might indicate that there are
+[2] The smallest eigenvalue is 1.89e-26. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          Total_Charges   R-squared:                       0.402
+Model:                            OLS   Adj. R-squared:                  0.401
+Method:                 Least Squares   F-statistic:                     674.3
+Date:                Tue, 23 Jul 2024   Prob (F-statistic):               0.00
+Time:                        19:48:49   Log-Likelihood:                -62500.
+No. Observations:                7032   AIC:                         1.250e+05
+Df Residuals:                    7024   BIC:                         1.251e+05
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+====================================================================================================
+                                       coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------
+const                              242.2512     72.987      3.319      0.001      99.175     385.328
+Senior_Citizen_Yes                 -53.8390     60.134     -0.895      0.371    -171.719      64.041
+Partner_Yes                       1251.0772     47.786     26.181      0.000    1157.403    1344.752
+Dependents_Yes                     -50.9109     53.428     -0.953      0.341    -155.645      53.824
+Phone_Service_Yes                  864.8797     79.473     10.883      0.000     709.089    1020.671
+Internet_Service_Fiber_optic       550.3452     54.542     10.090      0.000     443.427     657.264
+Internet_Service_No               -511.0243     32.277    -15.832      0.000    -574.297    -447.751
+Streaming_TV_No_internet_service  -511.0243     32.277    -15.832      0.000    -574.297    -447.751
+Streaming_TV_Yes                  1713.6620     48.428     35.386      0.000    1618.728    1808.596
+==============================================================================
+Omnibus:                       73.186   Durbin-Watson:                   2.038
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               74.689
+Skew:                           0.245   Prob(JB):                     6.05e-17
+Kurtosis:                       2.881   Cond. No.                     1.01e+15
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 1.89e-26. This might indicate that there are
 strong multicollinearity problems or that the design matrix is singular.

@@ -1,10 +1,10 @@
-from data.read_data import read_data
+from data.clean_data import clean_data
 import pandas as pd
 import statsmodels.api as sm
 
 
 def inspect_data():
-    data = read_data()
+    data = clean_data()
 
     file = open('data_insight/basic_insight.txt', 'w')
 
@@ -109,8 +109,7 @@ def inspect_data():
     tenure_mean_std_by_churn = data.groupby('Churn').agg({'Tenure': ['mean', 'std']}).reset_index()
     file.write(f'Tenure mean and std by churn:\n{round(tenure_mean_std_by_churn, 2)}\n' + '\n')
 
-
-# How different categorical variables impact tenure
+    # How different categorical variables impact tenure
     x = pd.get_dummies(
         data[['Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
         drop_first=True)
@@ -121,6 +120,12 @@ def inspect_data():
 
     # How different categorical variables impact monthly charges
     y = data['Monthly_Charges']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    file.write(f'{model.summary()}\n' + '\n')
+
+    # How different categorical variables impact total charges
+    y = data['Total_Charges']
     x = sm.add_constant(x)
     model = sm.OLS(y, x.astype(float)).fit()
     file.write(f'{model.summary()}')

@@ -7,25 +7,7 @@ data = clean_data()
 
 
 def tenure_summary_statistics():
-    tenure_mean = round(data['Tenure'].mean(), 1)
-    tenure_median = data['Tenure'].median()
-    tenure_min = data['Tenure'].min()
-    tenure_max = data['Tenure'].max()
-    tenure_q1 = data['Tenure'].quantile(0.25)
-    tenure_q3 = data['Tenure'].quantile(0.75)
-    tenure_std = round(data['Tenure'].std(), 1)
-
-    tenure_summary = {
-        "Mean": tenure_mean,
-        "Median": tenure_median,
-        "Min": tenure_min,
-        "Max": tenure_max,
-        "Q1": tenure_q1,
-        "Q3": tenure_q3,
-        "Std": tenure_std,
-    }
-
-    return tenure_summary
+    return summary_statistics('Tenure')
 
 
 def tenure():
@@ -33,29 +15,39 @@ def tenure():
 
 
 def monthly_charges_summary_statistics():
-    monthly_charges_mean = round(data['Monthly_Charges'].mean(), 2)
-    monthly_charges_median = data['Monthly_Charges'].median()
-    monthly_charges_min = data['Monthly_Charges'].min()
-    monthly_charges_max = data['Monthly_Charges'].max()
-    monthly_charges_q1 = data['Monthly_Charges'].quantile(0.25)
-    monthly_charges_q3 = data['Monthly_Charges'].quantile(0.75)
-    monthly_charges_std = round(data['Monthly_Charges'].std(), 2)
-
-    monthly_charges_summary = {
-        "Mean": monthly_charges_mean,
-        "Median": monthly_charges_median,
-        "Min": monthly_charges_min,
-        "Max": monthly_charges_max,
-        "Q1": monthly_charges_q1,
-        "Q3": monthly_charges_q3,
-        "Std": monthly_charges_std
-    }
-
-    return monthly_charges_summary
+    return summary_statistics('Monthly_Charges')
 
 
 def monthly_charges():
     return data['Monthly_Charges']
+
+
+def total_charges_summary_statistics():
+    return summary_statistics('Total_Charges')
+
+
+def total_charges():
+    return data['Total_Charges']
+
+
+def summary_statistics(variable):
+    variable_mean = round(data[variable].mean(), 1)
+    variable_median = round(data[variable].median(), 1)
+    variable_min = round(data[variable].min(),1)
+    variable_max = round(data[variable].max(),1)
+    variable_q1 = round(data[variable].quantile(0.25), 1)
+    variable_q3 = round(data[variable].quantile(0.75), 1)
+    variable_std = round(data[variable].std(), 1)
+    variable_summary = {
+        "Mean": variable_mean,
+        "Median": variable_median,
+        "Min": variable_min,
+        "Max": variable_max,
+        "Q1": variable_q1,
+        "Q3": variable_q3,
+        "Std": variable_std,
+    }
+    return variable_summary
 
 
 def churn_statistics():
@@ -388,5 +380,27 @@ def tenure_model_summary():
     y = data['Tenure']
     x = sm.add_constant(x)
     model = sm.OLS(y, x.astype(float)).fit()
-    with open('templates/model_summary.html', 'w') as f:
+    with open('templates/tenure_model_summary.html', 'w') as f:
+        f.write(model.summary().as_html())
+
+
+def monthly_charges_model_summary():
+    x = pd.get_dummies(
+        data[['Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
+        drop_first=True)
+    y = data['Monthly_Charges']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    with open('templates/monthly_charges_model_summary.html', 'w') as f:
+        f.write(model.summary().as_html())
+
+
+def total_charges_model_summary():
+    x = pd.get_dummies(
+        data[['Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
+        drop_first=True)
+    y = data['Total_Charges']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    with open('templates/total_charges_model_summary.html', 'w') as f:
         f.write(model.summary().as_html())
