@@ -44,6 +44,9 @@ def churn_page():
     monthly_total_churn_data = monthly_total_charges_churn()
     monthly_total_churn_bar(monthly_total_churn_data)
 
+    total_churn_data = total_charges_churn()
+    total_revenue_by_tenure_churn_bar(total_churn_data)
+
     return render_template('churn.html')
 
 
@@ -148,7 +151,6 @@ def profitability_page():
 
 @app.route('/tests', methods=['GET'])
 def tests_page():
-
     return render_template('tests.html')
 
 
@@ -159,6 +161,11 @@ def models_page():
     total_charges_model_summary()
 
     return render_template('models.html')
+
+
+@app.route('/conclusions', methods=['GET'])
+def conclusions_page():
+    return render_template('conclusions.html')
 
 
 if __name__ == '__main__':

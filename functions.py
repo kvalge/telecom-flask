@@ -99,13 +99,26 @@ def monthly_charges_churn():
 def monthly_total_charges_churn():
     bins = np.arange(10, max(list(monthly_charges())) + 10, 10)
 
-    data['Monthly_Charges_bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
+    data['Monthly_Charges_Bin'] = pd.cut(data['Monthly_Charges'], bins=bins)
 
-    monthly_total_churn_summary = data.groupby(['Monthly_Charges_bin', 'Churn'])[
+    monthly_total_churn_summary = data.groupby(['Monthly_Charges_Bin', 'Churn'])[
         'Total_Charges'].sum().unstack().fillna(0)
 
     return monthly_total_churn_summary
 
+
+def total_charges_churn():
+    bins = np.arange(0, max(list(total_charges())) + 1000, 1000)
+
+    data['Total_Charges_Bin'] = pd.cut(data['Total_Charges'], bins=bins)
+
+    total_churn_summary = data.groupby(['Total_Charges_Bin', 'Churn'])[
+        'Tenure'].mean().unstack().fillna(0)
+
+    print(total_churn_summary)
+    return total_churn_summary
+
+print(total_charges_churn())
 
 def age_group_statistics():
     senior_no = data['Senior_Citizen'].value_counts()['No']

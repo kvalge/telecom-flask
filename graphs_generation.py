@@ -89,6 +89,44 @@ def monthly_total_churn_bar(summary):
     plt.close()
 
 
+def total_revenue_by_tenure_churn_bar(summary):
+    fig, ax = plt.subplots(figsize=(8, 5))
+    bar_width = 0.9
+    indices = np.arange(len(summary))
+
+    tenure = summary['Yes'] + summary['No']
+    total_charges_sum = tenure.sum()
+
+    bars_terminated = ax.bar(indices, summary['Yes'], bar_width, label='Terminated', color='#034362')
+    bars_active = ax.bar(indices, summary['No'], bar_width, bottom=summary['Yes'], label='Active', color='#0B9AB6')
+    ax.set_title('Total Revenue by Tenure and Churn')
+    ax.set_xlabel('Total Charges')
+    ax.set_ylabel('Tenure')
+    ax.set_xticks(indices)
+    ax.set_xticklabels([f'{interval.left:.0f}-{interval.right:.0f}' for interval in summary.index], rotation=0)
+    plt.xticks(fontsize=7)
+    plt.yticks(fontsize=7)
+    ax.legend()
+
+    for i, (bar_terminated, bar_active) in enumerate(zip(bars_terminated, bars_active)):
+        bar_total = bar_terminated.get_height() + bar_active.get_height()
+        percentage = (bar_total / total_charges_sum) * 100
+        ax.text(bar_terminated.get_x() + bar_terminated.get_width() / 2,
+                bar_total,
+                f'{percentage:.1f}%',
+                ha='center',
+                va='bottom',
+                fontsize=8)
+
+    explanation = (
+        "Percentage shows share of average tenure \nof every revenue bin of all tenures\n(churned + not churned)"
+    )
+    plt.gcf().text(0.32, 0.75, explanation, ha='center', va='top', fontsize=10, multialignment='left')
+
+    plt.savefig('static/graphs/total_churn_bar.png')
+    plt.close()
+
+
 def age_group_bar(age_group_data):
     two_bars(age_group_data, 'age group', ['Age < 65', 'Age > 65'])
 
