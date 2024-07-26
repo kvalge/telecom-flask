@@ -85,11 +85,12 @@ input, button {
     height: 25px;
     border-radius: 3px;
     border-color: #034362;
+    cursor: pointer;
 }
 
-button[name="delete"] {
-    background-color: #d03189;
-    border-color: #d03189;
+button[name="edit"] {
+    background-color: #0B9AB6;
+    border-color: #0B9AB6;
 }
 
 textarea {

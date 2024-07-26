@@ -199,18 +199,10 @@ def models_page():
     return render_template('models.html')
 
 
-@app.route('/conclusions', methods=['GET', 'POST'])
+@app.route('/conclusions', methods=['GET'])
 def conclusions_page():
+    conclusions = get_conclusions()
     message = ''
-    conclusions = []
-
-    try:
-        with open('data_insight/conclusions.txt', 'r') as file:
-            conclusions = file.readlines()
-            conclusions = [line.strip() for line in conclusions]
-    except FileNotFoundError:
-        message = "No conclusions file found."
-        print(message)
 
     if len(conclusions) == 0:
         message = "No conclusions saved yet."
@@ -218,6 +210,29 @@ def conclusions_page():
     return render_template('conclusions.html',
                            conclusions=conclusions,
                            message=message)
+
+
+@app.route('/delete/<id>', methods=['POST'])
+def delete(id):
+    updated_conclusions = []
+
+    try:
+        with open('data_insight/conclusions.txt', 'r') as file:
+            lines = file.readlines()
+
+            for line in lines:
+                parts = line.strip().split('-', 1)
+                if parts[0] != id:
+                    updated_conclusions.append(parts[1])
+    except FileNotFoundError:
+        print("File not found!")
+
+    clear_file('data_insight/conclusions.txt')
+
+    for conclusion in updated_conclusions:
+        save_conclusions(None, conclusion)
+
+    return conclusions_page()
 
 
 if __name__ == '__main__':

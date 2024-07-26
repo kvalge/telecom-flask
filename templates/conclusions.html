@@ -4,11 +4,17 @@
     <div class="frame">
 
         <h1>Conclusions</h1>
+
         {% if conclusions %}
             {% for conclusion in conclusions %}
-                <p>{{ conclusion }}</p>
-                <button type="submit" name="edit">Edit</button>
-                <button type="submit" name="delete">Delete</button>
+                <p>{{ conclusion[1] }}</p>
+                <form action="/edit/{{ conclusion[0] }}" method="POST">
+                    <button type="submit" name="edit">Edit</button>
+                </form>
+                <br>
+                <form action="/delete/{{ conclusion[0] }}" method="POST">
+                    <button type="submit" name="delete">Delete</button>
+                </form>
                 <br>
                 <hr>
             {% endfor %}
