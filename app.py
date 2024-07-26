@@ -1,11 +1,12 @@
-from flask import Flask, render_template
-from functions import *
+from flask import Flask, render_template, request
+from data_analysis_functions import *
 from graphs_generation import *
+from functions import *
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def summary():
     tenure_stat = tenure_summary_statistics()
     tenure_data = tenure()
@@ -26,6 +27,11 @@ def summary():
     churn_data = churn()
     churn_pie(churn_data)
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'Summary page: '
+        save_conclusions(source_page, text)
+
     return render_template('summary.html',
                            monthly_stat=monthly_stat,
                            total_stat=total_stat,
@@ -33,7 +39,7 @@ def summary():
                            churn_stat=churn_stat)
 
 
-@app.route('/churn', methods=['GET'])
+@app.route('/churn', methods=['GET', 'POST'])
 def churn_page():
     tenure_churn_data = tenure_churn()
     tenure_churn_bar(tenure_churn_data)
@@ -47,10 +53,15 @@ def churn_page():
     total_churn_data = total_charges_churn()
     total_revenue_by_tenure_churn_bar(total_churn_data)
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('churn.html')
 
 
-@app.route('/sociodem', methods=['GET'])
+@app.route('/sociodem', methods=['GET', 'POST'])
 def sociodem_page():
     age_group_stat = age_group_statistics()
     age_group_data = age_group()
@@ -87,6 +98,11 @@ def sociodem_page():
     total_charges_by_sociodem = av_total_charges_by_sociodem()
     av_total_charges_by_sociodem_line(total_charges_by_sociodem)
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
                            partner_stat=partner_stat,
@@ -100,7 +116,7 @@ def sociodem_page():
                            )
 
 
-@app.route('/services', methods=['GET'])
+@app.route('/services', methods=['GET', 'POST'])
 def services_page():
     phone_stat = phone_statistics()
     phone_data = phone()
@@ -128,6 +144,11 @@ def services_page():
     streaming_tv_churn_monthly_heatmap(churn_by_streaming_tv_monthly_mean_data())
     streaming_tv_churn_total_heatmap(churn_by_streaming_tv_total_mean_data())
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('services.html',
                            phone_stat=phone_stat,
                            internet_stat=internet_stat,
@@ -140,32 +161,63 @@ def services_page():
                            by_streaming_tv_total=by_streaming_tv_total)
 
 
-@app.route('/profitability', methods=['GET'])
+@app.route('/profitability', methods=['GET', 'POST'])
 def profitability_page():
     total_charges_churn_by_sociodem_treemap(total_charges_churn_by_sociodem())
     total_charges_churn_by_services_treemap(total_charges_churn_by_services())
     total_charges_churn_by_sociodem_and_services_treemap(total_charges_churn_by_sociodem_and_services())
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('profitability.html')
 
 
-@app.route('/tests', methods=['GET'])
+@app.route('/tests', methods=['GET', 'POST'])
 def tests_page():
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('tests.html')
 
 
-@app.route('/models', methods=['GET'])
+@app.route('/models', methods=['GET', 'POST'])
 def models_page():
     tenure_model_summary()
     monthly_charges_model_summary()
     total_charges_model_summary()
 
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        save_conclusions(source_page, text)
+
     return render_template('models.html')
 
 
-@app.route('/conclusions', methods=['GET'])
+@app.route('/conclusions', methods=['GET', 'POST'])
 def conclusions_page():
-    return render_template('conclusions.html')
+    message = ''
+    conclusions = []
+
+    try:
+        with open('data_insight/conclusions.txt', 'r') as file:
+            conclusions = file.readlines()
+            conclusions = [line.strip() for line in conclusions]
+    except FileNotFoundError:
+        message = "No conclusions file found."
+        print(message)
+
+    if len(conclusions) == 0:
+        message = "No conclusions saved yet."
+
+    return render_template('conclusions.html',
+                           conclusions=conclusions,
+                           message=message)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@ import numpy as np
 import squarify
 import seaborn as sns
 
-from functions import tenure, monthly_charges, total_charges
+from data_analysis_functions import tenure, monthly_charges, total_charges
 
 
 def tenure_histogram(tenure_data):

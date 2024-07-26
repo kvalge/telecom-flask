@@ -56,6 +56,10 @@
         </div>
         <br>
 
+        {% include 'conclusions_form.html' %}
+        <br>
+        <br>
+
         <h2>Partnership</h2>
         <p>Whether the client has or does not have a partner</p>
 
@@ -107,6 +111,10 @@
                 </div>
             </div>
         </div>
+        <br>
+
+        {% include 'conclusions_form.html' %}
+        <br>
         <br>
 
         <h2>Dependents</h2>
@@ -175,13 +183,17 @@
                      alt="Average Monthly Charges by Sociodem" class="graph">
             </div>
         </div>
-    <br>
-            <div class="graph-frame">
+        <br>
+        <div class="graph-frame">
             <div>
                 <img src="{{ url_for('static', filename='graphs/total_charges_by_sociodem_line.png') }}"
                      alt="Average Total Charges by Sociodem" class="graph">
             </div>
         </div>
+
+        {% include 'conclusions_form.html' %}
+        <br>
+        <br>
 
     </div>
 

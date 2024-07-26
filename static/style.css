@@ -76,3 +76,24 @@ h1 {
     height: auto;
     margin: 0 auto;
 }
+
+input, button {
+    color: white;
+    background-color: #034362;
+    font-size: 13px;
+    width: 70px;
+    height: 25px;
+    border-radius: 3px;
+    border-color: #034362;
+}
+
+button[name="delete"] {
+    background-color: #d03189;
+    border-color: #d03189;
+}
+
+textarea {
+    text-align: left;
+    white-space: pre-wrap;
+    color: #98aaad;
+}
