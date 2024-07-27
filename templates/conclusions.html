@@ -8,16 +8,25 @@
         {% if conclusions %}
             {% for conclusion in conclusions %}
                 <p>{{ conclusion[1] }}</p>
-                <form action="/edit/{{ conclusion[0] }}" method="POST">
-                    <button type="submit" name="edit">Edit</button>
-                </form>
-                <br>
-                <form action="/delete/{{ conclusion[0] }}" method="POST">
-                    <button type="submit" name="delete">Delete</button>
-                </form>
+                {% if conclusion_to_update %}
+                    {% include 'conclusions_form.html' %}
+                    {% if message %}
+                        <p>{{ message }}</p>
+                        {% endif %}
+                {% else %}
+                    <div class="button-container">
+                        <form action="/edit/{{ conclusion[0] }}" method="POST">
+                            <button type="submit" name="edit">Edit</button>
+                        </form>
+                        <form action="/delete/{{ conclusion[0] }}" method="POST">
+                            <button type="submit" name="delete">Delete</button>
+                        </form>
+                    </div>
+                {% endif %}
                 <br>
                 <hr>
             {% endfor %}
+
         {% else %}
             <p>{{ message }}</p>
         {% endif %}

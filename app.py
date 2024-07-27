@@ -27,16 +27,19 @@ def summary():
     churn_data = churn()
     churn_pie(churn_data)
 
+    message = ''
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'Summary page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('summary.html',
                            monthly_stat=monthly_stat,
                            total_stat=total_stat,
                            tenure_stat=tenure_stat,
-                           churn_stat=churn_stat)
+                           churn_stat=churn_stat,
+                           message=message)
 
 
 @app.route('/churn', methods=['GET', 'POST'])
@@ -56,7 +59,8 @@ def churn_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('churn.html')
 
@@ -101,7 +105,8 @@ def sociodem_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
@@ -147,7 +152,8 @@ def services_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('services.html',
                            phone_stat=phone_stat,
@@ -170,7 +176,8 @@ def profitability_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('profitability.html')
 
@@ -180,7 +187,8 @@ def tests_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('tests.html')
 
@@ -194,22 +202,39 @@ def models_page():
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
-        save_conclusions(source_page, text)
+        if text and len(text.strip()) > 1:
+            save_conclusions(source_page, text)
 
     return render_template('models.html')
 
 
-@app.route('/conclusions', methods=['GET'])
-def conclusions_page():
+@app.route('/conclusions', methods=['GET', 'POST'])
+def conclusions_page(conclusion_to_update=None):
     conclusions = get_conclusions()
     message = ''
 
     if len(conclusions) == 0:
         message = "No conclusions saved yet."
 
+    if request.method == "POST":
+        if conclusion_to_update:
+            text = request.form.get('conclusions')
+            if text and len(text.strip()) > 1:
+                delete(conclusion_to_update[0][0])
+                text = text.strip().capitalize()
+                page_name = conclusion_to_update[0][1].strip().split(':', 1)
+                source_page = f'{page_name[0].capitalize()}: '
+                save_conclusions(source_page, text)
+
+                conclusions = get_conclusions()
+
+                return render_template('conclusions.html',
+                                       conclusions=conclusions)
+
     return render_template('conclusions.html',
                            conclusions=conclusions,
-                           message=message)
+                           message=message,
+                           conclusion_to_update=conclusion_to_update)
 
 
 @app.route('/delete/<id>', methods=['POST'])
@@ -232,7 +257,26 @@ def delete(id):
     for conclusion in updated_conclusions:
         save_conclusions(None, conclusion)
 
-    return conclusions_page()
+    return conclusions_page(None)
+
+
+@app.route('/edit/<id>', methods=['POST'])
+def edit(id):
+    conclusion_to_update = []
+
+    try:
+        with open('data_insight/conclusions.txt', 'r') as file:
+            lines = file.readlines()
+
+            for line in lines:
+                parts = line.strip().split('-', 1)
+                if parts[0] == id:
+                    conclusion_to_update.append([parts[0], parts[1]])
+                    break
+    except FileNotFoundError:
+        print("File not found!")
+
+    return conclusions_page(conclusion_to_update)
 
 
 if __name__ == '__main__':

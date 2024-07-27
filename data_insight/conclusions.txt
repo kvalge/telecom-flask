@@ -1,3 +1,5 @@
-10-Churn page:  Except for a group with a very high monthly fee, there are more contract terminations as the monthly fee increases.
-11-Profitability page:  The customers with the highest total revenue are under 65 who has all three services.
-12-Summary page:  25% of customers remain in contract for less than 9 months -> take a closer look at the first months.
+182-Summary page:  25% of customers remain in contract for less than 9 months -> take a closer look at the first months.
+183-Summary page:  Mean of monthly charges is lower than median -> compare customer profiles of groups with low and high monthly fees.
+184-Churn page:  The longer the contract has lasted, the fewer contract terminations there are - > compare the profiles of customers with short-term and long-term contracts.
+185-Churn page:  Except for a group with a very high monthly fee, there are more contract terminations as the monthly fee increases.
+186-Profitability page:  The customers with the highest total revenue are under 65 who has all three services - updated!

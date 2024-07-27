@@ -77,6 +77,11 @@ h1 {
     margin: 0 auto;
 }
 
+.button-container {
+    display: flex;
+    gap: 5px;
+}
+
 input, button {
     color: white;
     background-color: #034362;
@@ -96,5 +101,4 @@ button[name="edit"] {
 textarea {
     text-align: left;
     white-space: pre-wrap;
-    color: #98aaad;
 }
