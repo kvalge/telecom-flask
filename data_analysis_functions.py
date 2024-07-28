@@ -446,6 +446,27 @@ def churn_by_service_spends_mean(service, period):
     return mean.round(2)
 
 
+def total_charges_by_tv_service():
+    has_tv_service = data[data['Streaming_TV'] == 'Yes']['Total_Charges']
+    has_not_tv_service = data[data['Streaming_TV'].isin(['No', 'No_internet_service'])]['Total_Charges']
+
+    return has_tv_service, has_not_tv_service
+
+
+def total_charges_by_partner():
+    has_partner = data[data['Partner'] == 'Yes']['Total_Charges']
+    has_not_partner = data[data['Partner'].isin(['No'])]['Total_Charges']
+
+    return has_partner, has_not_partner
+
+
+def total_charges_by_phone_service():
+    has_phone = data[data['Phone_Service'] == 'Yes']['Total_Charges']
+    has_not_phone = data[data['Phone_Service'].isin(['No'])]['Total_Charges']
+
+    return has_phone, has_not_phone
+
+
 def tenure_model_summary():
     x = pd.get_dummies(
         data[['Senior_Citizen', 'Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
@@ -476,4 +497,26 @@ def total_charges_model_summary():
     x = sm.add_constant(x)
     model = sm.OLS(y, x.astype(float)).fit()
     with open('templates/total_charges_model_summary.html', 'w') as f:
+        f.write(model.summary().as_html())
+
+
+def total_charges_model_summary_v2():
+    x = pd.get_dummies(
+        data[['Partner', 'Dependents', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
+        drop_first=True)
+    y = data['Total_Charges']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    with open('templates/total_charges_model_summary_v2.html', 'w') as f:
+        f.write(model.summary().as_html())
+
+
+def total_charges_model_summary_v3():
+    x = pd.get_dummies(
+        data[['Partner', 'Phone_Service', 'Internet_Service', 'Streaming_TV']],
+        drop_first=True)
+    y = data['Total_Charges']
+    x = sm.add_constant(x)
+    model = sm.OLS(y, x.astype(float)).fit()
+    with open('templates/total_charges_model_summary_v3.html', 'w') as f:
         f.write(model.summary().as_html())

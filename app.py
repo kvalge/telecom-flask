@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from data_analysis_functions import *
 from graphs_generation import *
 from functions import *
+from test_functions import *
 
 app = Flask(__name__)
 
@@ -184,13 +185,44 @@ def profitability_page():
 
 @app.route('/tests', methods=['GET', 'POST'])
 def tests_page():
+    tv_service_test = tv_service_t_test()
+    has_tv_total_charges_mean = tv_service_test[0]
+    has_not_tv_total_charges_mean = tv_service_test[1]
+    t_stat_tv_service = tv_service_test[2]
+    p_value_tv_service = tv_service_test[3]
+
+    partner_test = partner_t_test()
+    has_partner_total_charges_mean = partner_test[0]
+    has_not_partner_total_charges_mean = partner_test[1]
+    t_stat_partner = partner_test[2]
+    p_value_partner = partner_test[3]
+
+    phone_test = phone_service_t_test()
+    has_phone_total_charges_mean = phone_test[0]
+    has_not_phone_total_charges_mean = phone_test[1]
+    t_stat_phone = phone_test[2]
+    p_value_phone = phone_test[3]
+
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
             save_conclusions(source_page, text)
 
-    return render_template('tests.html')
+    return render_template('tests.html',
+                           has_tv_total_charges_mean=has_tv_total_charges_mean,
+                           has_not_tv_total_charges_mean=has_not_tv_total_charges_mean,
+                           t_stat_tv_service=t_stat_tv_service,
+                           p_value_tv_service=p_value_tv_service,
+                           has_partner_total_charges_mean=has_partner_total_charges_mean,
+                           has_not_partner_total_charges_mean=has_not_partner_total_charges_mean,
+                           t_stat_partner=t_stat_partner,
+                           p_value_partner=p_value_partner,
+                           has_phone_total_charges_mean=has_phone_total_charges_mean,
+                           has_not_phone_total_charges_mean=has_not_phone_total_charges_mean,
+                           t_stat_phone=t_stat_phone,
+                           p_value_phone=p_value_phone
+                           )
 
 
 @app.route('/models', methods=['GET', 'POST'])
@@ -198,6 +230,8 @@ def models_page():
     tenure_model_summary()
     monthly_charges_model_summary()
     total_charges_model_summary()
+    total_charges_model_summary_v2()
+    total_charges_model_summary_v3()
 
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()

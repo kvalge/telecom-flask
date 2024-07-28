@@ -5,6 +5,39 @@
 
         <h1>Tests</h1>
 
+        <h2>TV Service t-Test</h2>
+        <p>H0: Total charges mean of customers who have TV service is equal to customers who have not TV service</p>
+        <p>H1: Total charges mean of customers who have TV service is greater compared to customers who have not TV
+           service</p>
+        <br>
+        <p>Total charges mean for customer who have TV service: {{ has_tv_total_charges_mean }}</p>
+        <p>Total charges mean for customer who have not TV service: {{ has_not_tv_total_charges_mean }}</p>
+        <p>t-stat: {{ t_stat_tv_service }}</p>
+        <p>p-value: {{ p_value_tv_service }}</p>
+        <br>
+
+        <h2>Having a Partner t-Test</h2>
+        <p>H0: Total charges mean of customers who have partner is equal to customers who have not partner</p>
+        <p>H1: Total charges mean of customers who have partner is greater compared to customers who have not
+           partner</p>
+        <br>
+        <p>Total charges mean for customer who have partner: {{ has_partner_total_charges_mean }}</p>
+        <p>Total charges mean for customer who have not partner: {{ has_not_partner_total_charges_mean }}</p>
+        <p>t-stat: {{ t_stat_partner }}</p>
+        <p>p-value: {{ p_value_partner }}</p>
+        <br>
+
+        <h2>Phone Service t-Test</h2>
+        <p>H0: Total charges mean of customers who have phone service is equal to customers who have not phone service</p>
+        <p>H1: Total charges mean of customers who have phone service is greater compared to customers who have not
+           phone service</p>
+        <br>
+        <p>Total charges mean for customer who have phone service: {{ has_phone_total_charges_mean }}</p>
+        <p>Total charges mean for customer who have not TV service: {{ has_not_phone_total_charges_mean}}</p>
+        <p>t-stat: {{ t_stat_phone }}</p>
+        <p>p-value: {{ p_value_phone }}</p>
+        <br>
+
         {% include 'conclusions_form.html' %}
         <br>
         <br>
