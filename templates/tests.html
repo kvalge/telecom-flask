@@ -5,42 +5,45 @@
 
         <h1>Tests</h1>
 
-        <h2>TV Service t-Test</h2>
-        <p>H0: Total charges mean of customers who have TV service is equal to customers who have not TV service</p>
-        <p>H1: Total charges mean of customers who have TV service is greater compared to customers who have not TV
-           service</p>
-        <br>
-        <p>Total charges mean for customer who have TV service: {{ has_tv_total_charges_mean }}</p>
-        <p>Total charges mean for customer who have not TV service: {{ has_not_tv_total_charges_mean }}</p>
-        <p>t-stat: {{ t_stat_tv_service }}</p>
-        <p>p-value: {{ p_value_tv_service }}</p>
+        <h3>One-tailed test of a hypothesis:</h3>
+        <h3>The mean of total charges is greater for Yes (having the service, belonging to the group)</h3>
+
+        <form action="/tests" method="POST">
+            <label for="variable">Select a category for testing: </label>
+
+            <select name="variable" id="variable">
+                <option></option>
+                <option value="Senior_Citizen">Age Group</option>
+                <option value="Partner">Partner</option>
+                <option value="Dependents">Dependents</option>
+                <option value="Phone_Service">Phone Service</option>
+                <option value="Internet_Service">Internet Service</option>
+                <option value="Streaming_TV">Streaming TV</option>
+            </select>
+            <br>
+            <br>
+            <button type="submit" name="submit">Submit</button>
+        </form>
+
         <br>
 
-        <h2>Having a Partner t-Test</h2>
-        <p>H0: Total charges mean of customers who have partner is equal to customers who have not partner</p>
-        <p>H1: Total charges mean of customers who have partner is greater compared to customers who have not
-           partner</p>
-        <br>
-        <p>Total charges mean for customer who have partner: {{ has_partner_total_charges_mean }}</p>
-        <p>Total charges mean for customer who have not partner: {{ has_not_partner_total_charges_mean }}</p>
-        <p>t-stat: {{ t_stat_partner }}</p>
-        <p>p-value: {{ p_value_partner }}</p>
-        <br>
+        {% if variable %}
 
-        <h2>Phone Service t-Test</h2>
-        <p>H0: Total charges mean of customers who have phone service is equal to customers who have not phone service</p>
-        <p>H1: Total charges mean of customers who have phone service is greater compared to customers who have not
-           phone service</p>
-        <br>
-        <p>Total charges mean for customer who have phone service: {{ has_phone_total_charges_mean }}</p>
-        <p>Total charges mean for customer who have not TV service: {{ has_not_phone_total_charges_mean}}</p>
-        <p>t-stat: {{ t_stat_phone }}</p>
-        <p>p-value: {{ p_value_phone }}</p>
-        <br>
+            <h2>{{ variable }}</h2>
+            <p>H0: Total charges mean of {{ variable }}-Yes is equal to {{ variable }}-No</p>
+            <p>H1: Total charges mean of {{ variable }}-Yes is greater compared to {{ variable }}-No</p>
+            <br>
+            <p>Total charges mean {{ variable }}-Yes: {{ yes_total_charges_mean }}</p>
+            <p>Total charges mean {{ variable }}-No: {{ no_total_charges_mean }}</p>
+            <p>t-stat: {{ t_stat }}</p>
+            <p>p-value: {{ p_value }}</p>
+            <br>
 
-        {% include 'conclusions_form.html' %}
-        <br>
-        <br>
+            {% include 'conclusions_form.html' %}
+            <br>
+            <br>
+
+        {% endif %}
 
     </div>
 

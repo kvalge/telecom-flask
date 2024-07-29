@@ -11,7 +11,7 @@ def write_conclusion_id(conclusion_id):
         file.write(str(conclusion_id))
 
 
-def save_conclusions(source_page, text):
+def save_conclusion(source_page, text):
     conclusion_id = read_conclusion_id()
 
     with open('data_insight/conclusions.txt', 'a') as file:
@@ -27,6 +27,14 @@ def save_conclusions(source_page, text):
 def clear_file(filepath):
     with open(filepath, 'w') as _:
         pass
+
+
+def update_conclusions(lines):
+    clear_file('data_insight/conclusions.txt')
+
+    with open('data_insight/conclusions.txt', 'w') as file:
+        for line in lines:
+            file.write(line)
 
 
 def get_conclusions():

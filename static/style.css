@@ -82,7 +82,7 @@ h1 {
     gap: 5px;
 }
 
-input, button {
+button {
     color: white;
     background-color: #034362;
     font-size: 13px;
@@ -96,6 +96,11 @@ input, button {
 button[name="edit"] {
     background-color: #0B9AB6;
     border-color: #0B9AB6;
+}
+
+select {
+    width: 270px;
+    height: 25px;
 }
 
 textarea {

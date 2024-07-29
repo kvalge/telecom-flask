@@ -1,0 +1,8 @@
+Pandas
+Matplotlib
+NumPy
+squarify
+statsmodels
+scipy
+seaborn
+openpyxl

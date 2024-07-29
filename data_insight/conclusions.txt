@@ -1,4 +1,4 @@
-201-Summary page:  25% of customers remain in contract for less than 9 months -> take a closer look at the first months.
-202-Summary page:  Mean of monthly charges is lower than median -> compare customer profiles of groups with low and high monthly fees.
-203-Churn page:  The longer the contract has lasted, the fewer contract terminations there are - > compare the profiles of customers with short-term and long-term contracts.
-204-Profitability page:  The customers with the highest total revenue are under 65 who has all three services - updated.
+1-Summary page:  25% of customers remain in contract for less than 9 months -> take a closer look at the first months.
+2-Summary page:  Mean of monthly charges is lower than median -> compare customer profiles of groups with low and high monthly fees.
+3-Churn page:  The longer the contract has lasted, the fewer contract terminations there are - > compare the profiles of customers with short-term and long-term contracts.
+5-Profitability page:  The customers with the highest total revenue are under 65 who has all three services - updated.

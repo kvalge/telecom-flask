@@ -33,7 +33,7 @@ def summary():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'Summary page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('summary.html',
                            monthly_stat=monthly_stat,
@@ -61,7 +61,7 @@ def churn_page():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('churn.html')
 
@@ -107,7 +107,7 @@ def sociodem_page():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
@@ -154,7 +154,7 @@ def services_page():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('services.html',
                            phone_stat=phone_stat,
@@ -178,50 +178,47 @@ def profitability_page():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('profitability.html')
 
 
 @app.route('/tests', methods=['GET', 'POST'])
 def tests_page():
-    tv_service_test = tv_service_t_test()
-    has_tv_total_charges_mean = tv_service_test[0]
-    has_not_tv_total_charges_mean = tv_service_test[1]
-    t_stat_tv_service = tv_service_test[2]
-    p_value_tv_service = tv_service_test[3]
+    variable = ''
+    yes_total_charges_mean = ''
+    no_total_charges_mean = ''
+    t_stat = ''
+    p_value = ''
 
-    partner_test = partner_t_test()
-    has_partner_total_charges_mean = partner_test[0]
-    has_not_partner_total_charges_mean = partner_test[1]
-    t_stat_partner = partner_test[2]
-    p_value_partner = partner_test[3]
+    if request.method == 'POST':
+        variable = request.form.get('variable')
+        conclusions = request.form.get('conclusions')
 
-    phone_test = phone_service_t_test()
-    has_phone_total_charges_mean = phone_test[0]
-    has_not_phone_total_charges_mean = phone_test[1]
-    t_stat_phone = phone_test[2]
-    p_value_phone = phone_test[3]
+        if variable is not None:
+            variable_value = variable.lower().strip()
+            t_test = t_hypothesis_test(variable_value)
+            yes_total_charges_mean = t_test[0]
+            no_total_charges_mean = t_test[1]
+            t_stat = t_test[2]
+            p_value = t_test[3]
+            if variable_value[-2:] == 'tv':
+                variable = 'Streaming TV'
+            else:
+                variable = variable_value.replace("_", " ").title()
 
-    if request.method == "POST":
-        text = request.form.get('conclusions').strip().capitalize()
-        source_page = f'{request.path[1:].capitalize()} page: '
-        if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+        if conclusions is not None:
+            text = conclusions.strip().capitalize()
+            source_page = f'{request.path[1:].capitalize()} page: '
+            if text and len(text.strip()) > 1:
+                save_conclusion(source_page, text)
 
     return render_template('tests.html',
-                           has_tv_total_charges_mean=has_tv_total_charges_mean,
-                           has_not_tv_total_charges_mean=has_not_tv_total_charges_mean,
-                           t_stat_tv_service=t_stat_tv_service,
-                           p_value_tv_service=p_value_tv_service,
-                           has_partner_total_charges_mean=has_partner_total_charges_mean,
-                           has_not_partner_total_charges_mean=has_not_partner_total_charges_mean,
-                           t_stat_partner=t_stat_partner,
-                           p_value_partner=p_value_partner,
-                           has_phone_total_charges_mean=has_phone_total_charges_mean,
-                           has_not_phone_total_charges_mean=has_not_phone_total_charges_mean,
-                           t_stat_phone=t_stat_phone,
-                           p_value_phone=p_value_phone
+                           variable=variable,
+                           yes_total_charges_mean=yes_total_charges_mean,
+                           no_total_charges_mean=no_total_charges_mean,
+                           t_stat=t_stat,
+                           p_value=p_value,
                            )
 
 
@@ -237,7 +234,7 @@ def models_page():
         text = request.form.get('conclusions').strip().capitalize()
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
-            save_conclusions(source_page, text)
+            save_conclusion(source_page, text)
 
     return render_template('models.html')
 
@@ -258,7 +255,7 @@ def conclusions_page(conclusion_to_update=None):
                 text = text.strip().capitalize()
                 page_name = conclusion_to_update[0][1].strip().split(':', 1)
                 source_page = f'{page_name[0].capitalize()}: '
-                save_conclusions(source_page, text)
+                save_conclusion(source_page, text)
 
                 conclusions = get_conclusions()
 
@@ -282,14 +279,11 @@ def delete(id):
             for line in lines:
                 parts = line.strip().split('-', 1)
                 if parts[0] != id:
-                    updated_conclusions.append(parts[1])
+                    updated_conclusions.append(line)
     except FileNotFoundError:
         print("File not found!")
 
-    clear_file('data_insight/conclusions.txt')
-
-    for conclusion in updated_conclusions:
-        save_conclusions(None, conclusion)
+    update_conclusions(updated_conclusions)
 
     return conclusions_page(None)
 
