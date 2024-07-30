@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import squarify
 import seaborn as sns
+import statsmodels.api as sm
 
 from data_analysis_functions import tenure, monthly_charges, total_charges
 
@@ -28,6 +29,16 @@ def total_charges_histogram(charges_data):
 
 def total_charges_boxplot(charges_data):
     summary_statistics_boxplot(charges_data, 'total charges')
+
+
+def total_charges_qqplot(charges_data):
+    sm.qqplot(charges_data, line='45')
+    plt.title('Total Charges QQ-Plot ')
+    plt.xlabel('Theoretical Quantiles')
+    plt.ylabel('Sample Quantiles')
+
+    plt.savefig('static/graphs/total_charges_qqplot.png')
+    plt.close()
 
 
 def churn_pie(churn_data):

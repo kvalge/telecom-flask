@@ -463,11 +463,42 @@ def total_charges_by_phone_service():
 
 
 def total_charges_by_internet_service():
-    return total_charges_by_category('Internet_Service')
+    yes = data[~data['Internet_Service'].isin(['No'])]['Total_Charges']
+    no = data[data['Internet_Service'] == 'No']['Total_Charges']
+
+    return yes, no
 
 
 def total_charges_by_streaming_tv():
     return total_charges_by_category('Streaming_TV')
+
+
+def total_charges_by_multiple_lines():
+    return total_charges_by_category('Multiple_Lines')
+
+
+def total_charges_by_online_security():
+    return total_charges_by_category('Online_Security')
+
+
+def total_charges_by_online_backup():
+    return total_charges_by_category('Online_Backup')
+
+
+def total_charges_by_device_protection():
+    return total_charges_by_category('Device_Protection')
+
+
+def total_charges_by_tech_support():
+    return total_charges_by_category('Tech_Support')
+
+
+def total_charges_by_streaming_movies():
+    return total_charges_by_category('Streaming_Movies')
+
+
+def total_charges_by_paperless_billing():
+    return total_charges_by_category('Paperless_Billing')
 
 
 def total_charges_by_category(variable):

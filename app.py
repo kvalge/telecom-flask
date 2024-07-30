@@ -189,19 +189,23 @@ def tests_page():
     yes_total_charges_mean = ''
     no_total_charges_mean = ''
     t_stat = ''
-    p_value = ''
+    ttest_p_value = ''
+    u_stat = ''
+    utest_p_value = ''
 
     if request.method == 'POST':
         variable = request.form.get('variable')
         conclusions = request.form.get('conclusions')
 
-        if variable is not None:
+        if variable is not None and variable != '':
             variable_value = variable.lower().strip()
-            t_test = t_hypothesis_test(variable_value)
-            yes_total_charges_mean = t_test[0]
-            no_total_charges_mean = t_test[1]
-            t_stat = t_test[2]
-            p_value = t_test[3]
+            hyp_test = hypothesis_test(variable_value)
+            yes_total_charges_mean = hyp_test[0]
+            no_total_charges_mean = hyp_test[1]
+            t_stat = hyp_test[2]
+            ttest_p_value = hyp_test[3]
+            u_stat = hyp_test[4]
+            utest_p_value = hyp_test[5]
             if variable_value[-2:] == 'tv':
                 variable = 'Streaming TV'
             else:
@@ -218,7 +222,9 @@ def tests_page():
                            yes_total_charges_mean=yes_total_charges_mean,
                            no_total_charges_mean=no_total_charges_mean,
                            t_stat=t_stat,
-                           p_value=p_value,
+                           ttest_p_value=ttest_p_value,
+                           u_stat=u_stat,
+                           utest_p_value=utest_p_value
                            )
 
 

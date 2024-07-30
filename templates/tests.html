@@ -5,8 +5,7 @@
 
         <h1>Tests</h1>
 
-        <h3>One-tailed test of a hypothesis:</h3>
-        <h3>The mean of total charges is greater for Yes (having the service, belonging to the group)</h3>
+        <h3>Hypothesis: The mean of total charges is greater for Yes (having the service, belonging to the group)</h3>
 
         <form action="/tests" method="POST">
             <label for="variable">Select a category for testing: </label>
@@ -19,6 +18,13 @@
                 <option value="Phone_Service">Phone Service</option>
                 <option value="Internet_Service">Internet Service</option>
                 <option value="Streaming_TV">Streaming TV</option>
+                <option value="Streaming_Movies">Streaming Movies</option>
+                <option value="Multiple_Lines">Multiple Lines</option>
+                <option value="Online_Security">Online Security</option>
+                <option value="Online_Backup">Online Backup</option>
+                <option value="Device_Protection">Device Protection</option>
+                <option value="Tech_Support">Tech Support</option>
+                <option value="Paperless_Billing">Paperless Billing</option>
             </select>
             <br>
             <br>
@@ -35,8 +41,10 @@
             <br>
             <p>Total charges mean {{ variable }}-Yes: {{ yes_total_charges_mean }}</p>
             <p>Total charges mean {{ variable }}-No: {{ no_total_charges_mean }}</p>
-            <p>t-stat: {{ t_stat }}</p>
-            <p>p-value: {{ p_value }}</p>
+            <p>t-test stat: {{ t_stat }}</p>
+            <p>t-test p-value: {{ ttest_p_value }}</p>
+            <p>Mann-Whitney U test stat: {{ u_stat }}</p>
+            <p>Mann-Whitney U test p-value: {{ utest_p_value }}</p>
             <br>
 
             {% include 'conclusions_form.html' %}
