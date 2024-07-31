@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
 from data_analysis_functions import *
 from graphs_generation import *
 from functions import *
 from test_functions import *
 
 app = Flask(__name__)
+app.secret_key = 'the_secret_key'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,6 +35,7 @@ def summary():
         source_page = f'Summary page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('summary.html',
                            monthly_stat=monthly_stat,
@@ -59,9 +61,10 @@ def churn_page():
 
     if request.method == "POST":
         text = request.form.get('conclusions').strip().capitalize()
-        source_page = f'{request.path[1:].capitalize()} page: '
+        source_page = f'Summary page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('churn.html')
 
@@ -108,6 +111,7 @@ def sociodem_page():
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('sociodem.html',
                            age_group_stat=age_group_stat,
@@ -155,6 +159,7 @@ def services_page():
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('services.html',
                            phone_stat=phone_stat,
@@ -179,19 +184,20 @@ def profitability_page():
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('profitability.html')
 
 
 @app.route('/tests', methods=['GET', 'POST'])
 def tests_page():
-    variable = ''
-    yes_total_charges_mean = ''
-    no_total_charges_mean = ''
-    t_stat = ''
-    ttest_p_value = ''
-    u_stat = ''
-    utest_p_value = ''
+    variable = session.get('variable', '')
+    yes_total_charges_mean = session.get('yes_total_charges_mean', '')
+    no_total_charges_mean = session.get('no_total_charges_mean', '')
+    t_stat = session.get('t_stat', '')
+    ttest_p_value = session.get('ttest_p_value', '')
+    u_stat = session.get('u_stat', '')
+    utest_p_value = session.get('utest_p_value', '')
 
     if request.method == 'POST':
         variable = request.form.get('variable')
@@ -200,22 +206,25 @@ def tests_page():
         if variable is not None and variable != '':
             variable_value = variable.lower().strip()
             hyp_test = hypothesis_test(variable_value)
-            yes_total_charges_mean = hyp_test[0]
-            no_total_charges_mean = hyp_test[1]
-            t_stat = hyp_test[2]
-            ttest_p_value = hyp_test[3]
-            u_stat = hyp_test[4]
-            utest_p_value = hyp_test[5]
+            session['yes_total_charges_mean'] = hyp_test[0]
+            session['no_total_charges_mean'] = hyp_test[1]
+            session['t_stat'] = hyp_test[2]
+            session['ttest_p_value'] = hyp_test[3]
+            session['u_stat'] = hyp_test[4]
+            session['utest_p_value'] = hyp_test[5]
+
             if variable_value[-2:] == 'tv':
-                variable = 'Streaming TV'
+                session['variable'] = 'Streaming TV'
             else:
-                variable = variable_value.replace("_", " ").title()
+                session['variable'] = variable_value.replace("_", " ").title()
+                return redirect("/tests")
 
         if conclusions is not None:
             text = conclusions.strip().capitalize()
             source_page = f'{request.path[1:].capitalize()} page: '
             if text and len(text.strip()) > 1:
                 save_conclusion(source_page, text)
+                return redirect("/conclusions")
 
     return render_template('tests.html',
                            variable=variable,
@@ -241,6 +250,7 @@ def models_page():
         source_page = f'{request.path[1:].capitalize()} page: '
         if text and len(text.strip()) > 1:
             save_conclusion(source_page, text)
+            return redirect("/conclusions")
 
     return render_template('models.html')
 
