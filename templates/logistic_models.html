@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="frame">
+        <a href="/models" class="back">Back</a>
+
+        <h1>Churn Prediction Logistic Regression Report</h1>
+        {% include 'churn_logistic_regression.html' %}
+        <br>
+        <br>
+
+        {% include 'conclusions_form.html' %}
+        <br>
+        <br>
+        <hr>
+        <br>
+
+    </div>
+
+{% endblock %}

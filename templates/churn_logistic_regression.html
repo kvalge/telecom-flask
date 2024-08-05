@@ -1,0 +1,29 @@
+
+        <html>
+        <head><title>Churn Prediction Logistic Regression Report</title></head>
+        <body>
+            <h2>Data Processing</h2>
+            <p>The following columns were removed: LoyaltyID, Customer_ID</p>
+            <p>The following categorical variables were converted to dummy variables: Senior_Citizen, Partner, Dependents, Phone_Service, Multiple_Lines, Internet_Service, Online_Security, Online_Backup, Device_Protection, Tech_Support, Streaming_TV, Streaming_Movies, Contract, Paperless_Billing, Payment_Method</p>
+
+            <h2>Data Splitting</h2>
+            <p>The data was split into training and test sets with the following distribution: 70% training set, 30% test set. Random state was set to 42 to ensure reproducibility.</p>
+
+            <h2>Feature Scaling</h2>
+            <p>Features were scaled using the StandardScaler method.</p>
+
+            <h2>Logistic Regression Model</h2>
+            <p>The logistic regression model was trained using max_iter=500 and solver='lbfgs'.</p>
+
+            <h2>Model Results</h2>
+            <p>Model accuracy on the test set: 0.69</p>
+            <p>Precision: 0.45</p>
+            <p>Recall: 0.84</p>
+            <p>F1 Score: 0.59</p>
+
+            <h2>Confusion Matrix and ROC Curve</h2>
+            <img src="static/graphs/confusion_matrix.png" alt="Confusion Matrix">
+            <img src="static/graphs/roc_curve.png" alt="ROC Curve">
+        </body>
+        </html>
+        

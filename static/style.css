@@ -30,6 +30,10 @@ a {
     text-decoration: none;
 }
 
+.clickable-link {
+    text-decoration: underline;
+}
+
 nav a.active {
     color: #fdf7fa;
 }
@@ -96,6 +100,15 @@ button {
 button[name="edit"] {
     background-color: #0B9AB6;
     border-color: #0B9AB6;
+}
+
+.back {
+    background-color: #034362;
+    color: white;
+    padding: 7px 30px;
+    border-radius: 3px;
+    font-size: 17px;
+    font-weight: lighter;
 }
 
 select {

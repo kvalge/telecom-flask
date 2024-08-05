@@ -3,6 +3,7 @@ from data_analysis_functions import *
 from graphs_generation import *
 from functions import *
 from test_functions import *
+from churn_logistic_regression import churn_logistic_regression_model
 
 app = Flask(__name__)
 app.secret_key = 'the_secret_key'
@@ -239,6 +240,11 @@ def tests_page():
 
 @app.route('/models', methods=['GET', 'POST'])
 def models_page():
+    return render_template('models.html')
+
+
+@app.route('/ols', methods=['GET', 'POST'])
+def ols_models_page():
     tenure_model_summary()
     monthly_charges_model_summary()
     total_charges_model_summary()
@@ -252,7 +258,21 @@ def models_page():
             save_conclusion(source_page, text)
             return redirect("/conclusions")
 
-    return render_template('models.html')
+    return render_template('ols_models.html')
+
+
+@app.route('/logistic', methods=['GET', 'POST'])
+def logistic_models_page():
+    churn_logistic_regression_model()
+
+    if request.method == "POST":
+        text = request.form.get('conclusions').strip().capitalize()
+        source_page = f'{request.path[1:].capitalize()} page: '
+        if text and len(text.strip()) > 1:
+            save_conclusion(source_page, text)
+            return redirect("/conclusions")
+
+    return render_template('logistic_models.html')
 
 
 @app.route('/conclusions', methods=['GET', 'POST'])

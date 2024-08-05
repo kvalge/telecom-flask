@@ -2,3 +2,5 @@
 2-Summary page:  Mean of monthly charges is lower than median -> compare customer profiles of groups with low and high monthly fees.
 3-Churn page:  The longer the contract has lasted, the fewer contract terminations there are - > compare the profiles of customers with short-term and long-term contracts.
 29-Profitability page:  The customers with the highest total revenue are under 65 who has all three services - updated updated.
+30-Ols page:  Check!
+31-Logistic page:  Improve model!
